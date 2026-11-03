@@ -1,0 +1,22 @@
+Platform pricing check - Nov 3, 2026 (America/Edmonton)
+Source: beehiiv.com/pricing, support.substack.com, kit.com/pricing (and Kit secondary summary)
+
+Beehiiv (Oct 2026 plans):
+- Free: $0, up to 2,500 subscribers, unlimited sends, recommendation network
+- Lite: from $49/mo yearly ($59 monthly) at 1,000 subs; up to 100,000; 0% take rate on paid subs; ads, automations, polls, A/B
+- Pro: from $95/mo yearly ($109 monthly) at 1,000; up to 250,000; remove branding, more seats/pubs
+- At Alpha 1 target (500 subs): Free fits. At 2,500 Free ceiling: still Free. Lite needed for paid subs / ad network / referral milestones.
+
+Substack:
+- Free to publish at any list size
+- 10% of paid subscription revenue + Stripe (~2.9%+$0.30) + 0.7% Stripe Billing
+- Custom domain: $50 one-time
+- Strength: discovery network. Watch-out: take rate once paid.
+
+Kit (ConvertKit):
+- Free up to 10,000 subscribers
+- Creator from ~$39/mo at 1,000 (scales with list); ~16% off yearly
+- Commerce fee 3.5%+$0.30 (includes processing)
+- Strength: automations/tagging. Watch-out: less built-in newsletter discovery than Beehiiv/Substack.
+
+Recommendation unchanged: start Beehiiv Free for Alpha. Revisit Lite when monetizing or past ~2,500.
