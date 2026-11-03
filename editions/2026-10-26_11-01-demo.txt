@@ -1,0 +1,82 @@
+DRAFT - NOT YET APPROVED OR PUBLISHED
+Funded Tape [name TBD] - Demo edition, week of Oct 26 to Nov 1, 2026
+Facts checked against sources on Nov 1, 2026 (PT)
+
+SUBJECT: Firms dump Prop Firm Match, a $149.99 no-challenge 50K, and Topstep's Live call-ups
+(Alt: The week firms walked away from Prop Firm Match + 4 more you can't miss)
+PREVIEW TEXT: 5 prop firm moves from this week, and what each one means for your next account.
+
+Happy Sunday, traders.
+
+It was a big week. The best-known prop firm comparison site lost a batch of partner firms, FundedNext opened a limited no-challenge 50K, BrightFunded moved into futures, and Topstep explained why heavy account-buyers get moved to Live. Here are the 5 things you can't miss.
+
+------------------------------------------------------------
+1) Firms cut ties with Prop Firm Match over affiliate-tracking claims
+
+On Oct 29, trader @traderkane posted a video on X. It showed that clicking a firm profile or a "copy code" button on Prop Firm Match (PFM) sent visitors through PFM's affiliate link. On Oct 30, Apex, Tradeify, Topstep and Goat Funded Trader said they were ending their affiliate ties with PFM. That evening PFM admitted the problem: "This should not have happened. We take full responsibility for it." It said it is working through the numbers with each partner.
+
+Why it matters: Discount codes and "best firm" rankings often come with affiliate money attached. Pick firms on their rules, not on a comparison site's rank, and expect firms to tighten their affiliate programs.
+
+Disclosure: @traderkane's X bio says he is building @propfirm.
+
+Sources:
+https://www.financemagnates.com/forex/prop-firm-match-faces-affiliate-tracking-allegations-topstep-apex-tradeify-and-goat-funded-cut-ties/
+https://x.com/PropFirmMatch/status/2116352044495765821
+https://x.com/traderkane/status/2115904959401140641
+
+------------------------------------------------------------
+2) FundedNext sells a $50K CFD account with no challenge for $149.99 (CFDs-FNL:004)
+
+It's a limited Lab release, capped at 2,000 accounts in total and 5 per person. There is no daily loss limit, and the $2,000 max loss trails your highest balance in real time. Before you can withdraw, your balance has to clear a fixed $2,100 buffer (so $52,100). Each payout needs at least $800 of profit above that buffer and is capped at $1,200, and you keep 80%. That works out to about $640 to $960 per payout. A 20% "perpetual" consistency rule applies, profits from trades near high-impact news count at only 40%, and the account closes after the 5th payout. There are no refunds or resets.
+
+Why it matters: The entry price is low, but the most you can take out is 5 payouts of up to $960, or about $4,800 per account, and the trailing drawdown is tight. Run the numbers before you buy.
+
+Source: https://help.fundednext.com/en/articles/17718088-cfds-fnl-004
+
+------------------------------------------------------------
+3) BrightFunded launches futures: BrightPlus and BrightCore
+
+On Oct 26, CFD firm BrightFunded opened futures evaluations. Both plans are one phase, with $25K to $150K accounts, a 6% profit target, no daily loss limit, no time limit, a one-time fee and no activation fee. BrightPlus has an intraday (real-time) drawdown and allows daily payouts. BrightCore has an end-of-day drawdown and pays out every 5 trading days. A 50% launch code (BRIGHTFUTURES) takes 25K prices to $60 (Plus) and $65 (Core).
+
+Why it matters: Another CFD brand is moving into futures, after FTMO did in August. More competition usually means cheaper evaluations. Check the drawdown type: an intraday drawdown is much easier to breach than an end-of-day one.
+
+Sources:
+https://futures-help.brightfunded.com/en/articles/17507286-what-is-brightfunded-futures
+https://brightfunded.com/futures/how-it-works
+
+------------------------------------------------------------
+4) Rule changes: Alpha Futures, Funded Futures Network, Blue Guardian Futures
+
+- Alpha Futures added an optional "No Consistency in Qualified" add-on for its Standard plan. It removes the 40% consistency rule on the Standard Qualified (funded) account for +$70, +$90 or +$110 a month on 50K, 100K and 150K. The evaluation keeps its 50% rule.
+- Funded Futures Network: CEO Ethan Warmuskerken said on X that accounts bought after Oct 22 no longer get closed for HFT (short-duration trade) violations. Under the new rule, only that day's short-trade profit is removed, when those trades make up more than 30% of the day's activity, per Funded Truth. Older accounts still fall under the old terms, and the firm is enforcing past violations, some going back to June.
+- Blue Guardian Futures: its official Standard rules page now lists a $5,000 max drawdown (end-of-day trailing) on the $150K account. Funded Truth reports this was raised from $3,500.
+
+Why it matters: Almost every change applies only to accounts bought after the change date. Check your purchase date and read the terms that came with it before you trade or request a payout.
+
+Sources:
+https://alpha-futures.com/posts/alpha-futures-no-consistency-add-on-2026
+https://x.com/EthanFFNCEO/status/2115103266186862804
+https://fundedtruth.com/prop-firm-news/funded-futures-network-softens-hft-rule-short-trades-no-longer-fail-the-account/
+https://helpfutures.blueguardian.com/en/articles/15654479-standard-account-rules
+https://fundedtruth.com/prop-firm-news/blue-guardian-futures-raises-standard-150k-max-drawdown-to-5000/
+
+------------------------------------------------------------
+5) Topstep: heavy account-buyers will be moved to Live
+
+On Oct 28, Topstep replied on X to a trader who complained about being moved to Live just before a payout. Topstep said he had taken four payouts in his first three weeks while buying accounts "at a pace that annualizes to roughly 700 per year." Its reply: "It isn't a SIM lottery. Everyone is welcome, but repeatedly cycling through accounts will eventually mean proving your strategy in Live." An amount equal to his XFA (Express Funded Account) balances will be released into his Live account as he builds there. Topstep also added Live performance stats to TopstepX.
+
+Why it matters: Buying and cycling lots of accounts can trigger a Live call-up, and that changes when and how you get paid. Read Topstep's Live transition rules before you scale up.
+
+Sources:
+https://x.com/Topstep/status/2115501066145976393
+https://fundedtruth.com/prop-firm-news/topstep-adds-live-performance-stats-on-topstepx-and-explains-calls-to-live/
+
+------------------------------------------------------------
+That's the week. Rules and deals change constantly, so always read the current terms on the firm's own page before you buy. Hit reply and tell us which firm we should dig into next.
+
+We're independent. If we ever use an affiliate link, we'll label it.
+
+See you next Sunday.
+- Funded Tape [name TBD]
+
+Not financial advice. Prop firm accounts are mostly simulated, and most traders do not receive a payout.
