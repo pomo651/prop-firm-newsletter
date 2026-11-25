@@ -1,22 +1,22 @@
 # Funded Tape
 
-Funded Tape is a weekly newsletter for prop firm traders. Each issue is the top 5 things you can't miss in the prop firm world that week: what changed, why it matters, and the source.
+Funded Tape is a daily newsletter for prop firm traders. Each issue is the things you can't miss in the prop firm world that day: what changed, why it matters, and the source.
 
 ## Roadmap
 
-- **Alpha:** a free text email, "Top 5 things you can't miss in the prop firm world this week." Sent on [Beehiiv](https://www.beehiiv.com/)'s free plan.
-- **Beta:** the same weekly issue, plus one YouTube video and Shorts.
+- **Alpha:** a free daily issue of "the things you can't miss in the prop firm world today," published at https://prop-firm-newsletter.vercel.app/daily. Sent on [Beehiiv](https://www.beehiiv.com/)'s free plan.
+- **Beta:** the same daily issue, plus one YouTube video and Shorts.
 
-## Weekly cadence
+## Daily cadence (changed from weekly on Nov 25, 2026, owner's decision)
 
-Watchers collect Monday through Thursday. The Editor drafts on Friday. The owner approves on Saturday. The issue sends on Sunday on Beehiiv.
+Every day the watchers collect, KFC picks, and the Editor drafts that day's edition and posts it to the site as a draft. The owner approves it, and then it is published. KFC proposes the exact daily times. (The old weekly rhythm was: collect Mon–Thu, draft Fri, approve Sat, send Sun.)
 
 ## Bot team
 
-- **KFC** is the CEO: plans the week, assigns work, and picks the Top 5.
+- **KFC** is the CEO: plans each day, assigns work, and picks what makes the edition.
 - **Feed** covers official firm sources and trade press (help centers, rule pages, firm announcements, industry news).
 - **Pulse** covers community sources: Reddit, X, YouTube, Discord, and reviews.
-- **Editor** writes the weekly draft.
+- **Editor** writes the daily draft.
 
 Nothing sends until the owner approves it.
 
@@ -29,7 +29,7 @@ Nothing sends until the owner approves it.
 - `site/` — the Funded Tape website (Next.js on Vercel). See **Website** below.
 - `supabase/migrations/` — database schema for the website.
 
-Future editions use `editions/YYYY-MM-DD_MM-DD.md`, named for the week the issue covers.
+Future editions use `editions/YYYY-MM-DD.md`, named for the day the issue covers (the demo file keeps its old weekly name).
 
 ## Website (added Nov 25, 2026)
 
@@ -48,7 +48,7 @@ The left sidebar has only these two pages for now.
 
 1. Anything marked `picked` appears on the public home page right away. Pick only fact-checked items.
 2. Editions are posted as `draft`. Only the owner publishes one, so "nothing goes out until the owner approves" still holds on the site.
-3. The site has a **daily** newsletter section. The `editions/*.txt|md` files remain the working drafts. Post the final version to `/api/bot/editions` too.
+3. The newsletter is **daily** (owner confirmed Nov 25, 2026). The `editions/*.txt|md` files remain the working drafts. Post the final version to `/api/bot/editions` too.
 
 **Database.** Supabase project `blackout-clock` (ref `fqgryxjuecjgelcjdvmq`), schema `funded_tape` (tables `sources`, `items`, `editions`). The site never touches blackout-clock's own tables. It reaches the data only through `public.ft_*` functions, which only the server key can call. Schema: `supabase/migrations/20261125000000_funded_tape_site.sql`.
 
