@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+  :root { --blue:#3B5BFD; --navy:#1E1B4B; --paper:#F7F5EF; --green:#16A34A; --red:#E11D48; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { width:1080px; height:1920px; overflow:hidden; background:var(--navy); }
+  body { font-family:'Inter',sans-serif; color:var(--navy); -webkit-font-smoothing:antialiased; }
+  .mono { font-family:'Geist Mono','DejaVu Sans Mono',monospace; }
+  #stage { position:absolute; inset:0; overflow:hidden; }
+  .topbar { position:absolute; left:0; top:0; width:1080px; height:170px; background:#ECE9E1; border-bottom:2px solid rgba(30,27,75,.08); }
+  .dot { position:absolute; top:70px; width:32px; height:32px; border-radius:50%; }
+  .tab { position:absolute; left:190px; top:38px; height:134px; max-width:430px; text-overflow:ellipsis; background:var(--paper); border:2px solid rgba(30,27,75,.10); border-bottom:none; border-radius:26px 26px 0 0; display:flex; align-items:center; padding:0 30px; gap:18px; font-weight:700; font-size:38px; white-space:nowrap; overflow:hidden; }
+  .tabicon { width:34px; height:34px; border-radius:9px; background:var(--blue); flex:none; position:relative; }
+  .tabicon:after { content:''; position:absolute; left:9px; top:9px; width:16px; height:16px; border-radius:4px; background:var(--paper); }
+  .right { position:absolute; right:34px; top:54px; display:flex; gap:14px; align-items:center; }
+  .pill { height:64px; border-radius:16px; display:flex; align-items:center; padding:0 18px; font-size:31px; font-weight:700; white-space:nowrap; }
+  .counter { background:var(--navy); color:#fff; }
+  .tag { background:var(--blue); color:#fff; }
+  .arrow { font-size:24px; margin-right:10px; }
+  .body { position:absolute; left:0; top:170px; width:1080px; height:1430px; background-color:var(--paper);
+          background-image: linear-gradient(rgba(30,27,75,.045) 2px, transparent 2px), linear-gradient(90deg, rgba(30,27,75,.045) 2px, transparent 2px);
+          background-size:54px 54px; overflow:hidden; }
+  .px { position:absolute; width:26px; height:26px; background:var(--blue); border-radius:3px; }
+  .footer { position:absolute; left:0; top:1600px; width:1080px; height:320px; background:var(--navy); display:flex; justify-content:center; padding-top:70px; }
+  .brand { color:#fff; font-size:62px; font-weight:700; letter-spacing:-.5px; }
+  .brand b { color:#8EA0FF; font-family:'Geist Mono',monospace; margin-right:18px; position:relative; top:-14px; font-size:44px; }
+  .cap { position:absolute; left:50%; top:1435px; transform:translateX(-50%); max-width:1000px; background:var(--navy); color:#fff; font-weight:800; font-size:64px; line-height:1.15; padding:20px 40px 24px; border-radius:22px; text-align:center; white-space:nowrap; box-shadow:0 12px 30px rgba(30,27,75,.25); }
+  .card { background:#fff; border-radius:30px; box-shadow:0 18px 40px rgba(30,27,75,.14), 0 2px 6px rgba(30,27,75,.08); border:2px solid rgba(30,27,75,.07); }
+  .win { overflow:hidden; }
+  .winbar { background:var(--navy); height:78px; display:flex; align-items:center; padding:0 26px; gap:12px; color:#fff; font-size:32px; font-weight:700; }
+  .winbar i { width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,.35); display:inline-block; }
+  .winbar span { margin-left:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .winfoot { background:var(--navy); height:58px; display:flex; align-items:center; padding:0 26px; gap:24px; color:rgba(255,255,255,.8); font-size:24px; }
+  .bar { flex:1; height:10px; border-radius:5px; background:rgba(255,255,255,.18); overflow:hidden; }
+  .bar div { height:100%; background:var(--blue); }
+  .chk { width:58px; height:58px; border-radius:14px; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:900; flex:none; }
+  .row { display:flex; justify-content:space-between; align-items:center; padding:16px 0; border-top:2px solid rgba(30,27,75,.08); font-size:38px; }
+  .row:first-child { border-top:none; }
+</style></head>
+<body><div id="stage"></div>
+<script>
+const D = window.DATA;
+const cl = (x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const eo = x=>1-Math.pow(1-cl(x),3);
+const eb = x=>{x=cl(x);const c1=1.6,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const p = (t,a,b)=>cl((t-a)/(b-a));
+const esc = s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const pad2 = n=>String(n).padStart(2,'0');
+// deterministic pixel squares around the edges (like the reference grid)
+let PX=''; { let s=7; const r=()=>{s=(s*9301+49297)%233280; return s/233280;};
+  for(let i=0;i<46;i++){ const edge=r()<.5; const x=edge? (r()<.5? r()*120 : 960+r()*120) : r()*1080; const y= edge? r()*1430 : (r()<.5? r()*60 : 1370+r()*60);
+    PX+=`<div class="px" style="left:${Math.floor(x/54)*54+14}px;top:${Math.floor(y/54)*54+14}px;opacity:${(.05+r()*.13).toFixed(2)}"></div>`; } }
+
+function topbar(tab, counter, tag, dir, tagPop){
+  const arrow = dir==='up' ? '<span class="arrow" style="color:#7CF0A6">&#9650;</span>' : dir==='down' ? '<span class="arrow" style="color:#FF8FA8">&#9660;</span>' : '';
+  const s = 0.85+0.15*eb(tagPop);
+  return `<div class="topbar">
+    <div class="dot" style="left:44px;background:#FF5F57"></div><div class="dot" style="left:90px;background:#FEBC2E"></div><div class="dot" style="left:136px;background:#28C840"></div>
+    <div class="tab"><div class="tabicon"></div>${esc(tab)}</div>
+    <div class="right"><div class="pill counter mono">${esc(counter)}</div>${tag?`<div class="pill tag" style="transform:scale(${s});opacity:${cl(tagPop*3)}">${arrow}${esc(tag)}</div>`:''}</div></div>`;
+}
+function caption(t){
+  const c = D.timeline.captions.find(c=>t>=c.start && t<c.end);
+  if(!c) return '';
+  const k = eo(p(t,c.start,c.start+.12));
+  let fs = 64; if (c.text.length>26) fs = 58; if (c.text.length>31) fs = 52;
+  return `<div class="cap" style="font-size:${fs}px;opacity:${k};transform:translateX(-50%) translateY(${(1-k)*14}px)">${esc(c.text)}</div>`;
+}
+function capStart(text, from){ const c = D.timeline.captions.find(c=>c.start>=from && c.text.startsWith(text)); return c? c.start : from; }
+
+function mock(m, prog){
+  let inner='';
+  if(m.kind==='stat'){
+    inner = `<div style="display:flex;align-items:center;gap:34px;padding:26px 40px 6px"><div style="font-size:140px;font-weight:900;color:var(--blue);letter-spacing:-6px;line-height:1">${esc(m.big)}</div><div style="font-size:42px;font-weight:700;line-height:1.2">${esc(m.label)}</div></div>
+      <div style="padding:0 40px 10px">${m.rows.map(r=>`<div class="row"><span style="opacity:.7">${esc(r[0])}</span><b>${esc(r[1])}</b></div>`).join('')}</div>`;
+  } else if(m.kind==='table'){
+    inner = `<div style="padding:24px 40px 14px"><div class="row" style="font-size:30px;opacity:.6;font-weight:700">${m.head.map((h,i)=>`<span style="width:${i?190:420}px;text-align:${i?'right':'left'}">${esc(h)}</span>`).join('')}</div>
+      ${m.rows.map(r=>`<div class="row">${r.map((c,i)=>`<span style="width:${i?190:420}px;text-align:${i?'right':'left'};${i===2?'color:var(--blue);font-weight:800':''}${i===1?'opacity:.55;text-decoration:line-through;':''}">${esc(c)}</span>`).join('')}</div>`).join('')}</div>`;
+  } else if(m.kind==='quote'){
+    inner = `<div style="padding:30px 46px 34px"><div style="font-size:150px;line-height:.7;color:var(--blue);font-weight:900;height:80px">&ldquo;</div>
+      <div style="font-size:68px;font-weight:900;line-height:1.08;letter-spacing:-1.5px">${esc(m.quote)}</div>
+      <div style="font-size:36px;line-height:1.35;margin-top:22px;opacity:.75">${esc(m.rest)}</div></div>`;
+  } else if(m.kind==='price'){
+    inner = `<div style="padding:18px 40px 14px">${m.rows.map((r,i)=>{const em = /Total/.test(r[0]); return `<div class="row" style="${em?'font-weight:800;':''}"><span style="opacity:${em?1:.75}">${esc(r[0])}</span><b style="font-size:${em?64:56}px;color:${em||m.rows.length===3&&!/Total/.test(m.rows[2][0])&&i===0?'var(--blue)':'var(--navy)'}">${esc(r[1])}</b></div>`}).join('')}</div>`;
+  }
+  return `<div class="card win"><div class="winbar"><i></i><i></i><i></i><span>${esc(m.name)}</span></div>${inner}
+    <div class="winfoot mono"><div class="bar"><div style="width:${(prog*100).toFixed(1)}%"></div></div><span>Funded Tape · ${esc(D.ep.date_range)}</span></div></div>`;
+}
+
+function itemScene(i, t, seg){
+  const it = D.ep.items[i]; const lt = t-seg.start; const dur = seg.end-seg.start;
+  const num = '#'+pad2(i+1);
+  // giant number intro
+  const nIn = eb(p(lt,0,.25)); const nOut = p(lt,.75,1.05);
+  let big = '';
+  if (lt < 1.1) big = `<div style="position:absolute;left:70px;top:${380-60*nOut}px;opacity:${(1-nOut)*cl(lt/.12)};transform:scale(${.8+.2*nIn});transform-origin:left center">
+      <div class="mono" style="font-size:300px;font-weight:800;letter-spacing:-12px;line-height:1">${num}</div>
+      <div class="mono" style="font-size:52px;font-weight:700;margin-top:20px">${esc(it.tab)}</div>
+      <div style="font-size:66px;font-weight:900;margin-top:26px;max-width:940px;line-height:1.1">${esc(it.title)}</div>
+      <div class="pill tag" style="display:inline-flex;margin-top:34px">${esc(it.tag)}</div></div>`;
+  const up = eo(p(lt,.72,1.08)); const y = (1-up)*1300;
+  const prog = cl(lt/dur);
+  const bt = [.36,.54,.70].map(f=>Math.max(1.6, f*dur));
+  const bullets = it.bullets.map((b,k)=>{ const q = p(lt,bt[k],bt[k]+.28); const c = eb(p(lt,bt[k]+.08,bt[k]+.36));
+     return `<div style="display:flex;align-items:center;gap:26px;padding:16px 0;${k?'border-top:2px solid rgba(30,27,75,.08);':''}opacity:${cl(q*2)};transform:translateX(${(1-eo(q))*-60}px)">
+       <div class="chk" style="transform:scale(${c})">&#10003;</div><div style="font-size:40px;font-weight:700;line-height:1.2">${esc(b)}</div></div>`; }).join('');
+  const content = `<div class="sheet" style="position:absolute;left:0;right:0;top:${y}px;height:1430px;padding:36px 46px 0;background-color:var(--paper);background-image:linear-gradient(rgba(30,27,75,.045) 2px, transparent 2px), linear-gradient(90deg, rgba(30,27,75,.045) 2px, transparent 2px);background-size:54px 54px;border-radius:${up<1?44:0}px ${up<1?44:0}px 0 0;box-shadow:0 -20px 50px rgba(30,27,75,${(.18*(1-up)).toFixed(3)})">
+     <div style="display:flex;align-items:flex-start;gap:24px">
+       <div class="mono" style="background:var(--navy);color:#fff;font-size:44px;font-weight:800;padding:10px 20px;border-radius:16px;flex:none;margin-top:6px">${num}</div>
+       <div style="font-size:56px;font-weight:900;line-height:1.08;letter-spacing:-1px">${esc(it.title)}</div></div>
+     <div style="font-size:36px;font-weight:500;margin:18px 0 24px;line-height:1.3"><span style="color:var(--blue);font-weight:800">${esc(it.tab)}</span> <span style="opacity:.45">·</span> <span style="opacity:.8">${esc(it.summary)}</span></div>
+     ${mock(it.mock, prog)}
+     <div class="card" style="margin-top:24px;padding:6px 36px;opacity:${cl(p(lt,bt[0]-.2,bt[0]+.05))};transform:translateY(${(1-eo(p(lt,bt[0]-.2,bt[0]+.1)))*40}px)">${bullets}</div></div>`;
+  return topbar(it.tab, `${pad2(i+1)} / 05`, it.tag, it.dir, p(lt,.05,.4)) + `<div class="body">${PX}${big}${content}</div>`;
+}
+
+function hookScene(t, seg){
+  const lt = t-seg.start; const listAt = capStart('Number one', seg.start)-seg.start-0.35;
+  const a = eb(p(lt,0,.4)); const mv = eo(p(lt,listAt,listAt+.45));
+  const t1 = capStart('Number one', seg.start), t5 = capStart('Number five', seg.start);
+  const title = `<div style="position:absolute;left:0;right:0;top:${420-320*mv}px;text-align:center;transform:scale(${(.88+.12*a)*(1-.32*mv)});opacity:${cl(lt/.15)}">
+     <div class="mono" style="font-size:38px;color:var(--blue);font-weight:700;letter-spacing:4px">THIS WEEK IN PROP FIRMS</div>
+     <div style="font-size:150px;font-weight:900;letter-spacing:-5px;line-height:1.05;margin-top:16px">Funded Tape</div>
+     <div style="font-size:66px;font-weight:800;margin-top:6px">Top 5 prop firm stories</div>
+     <div class="pill counter mono" style="display:inline-flex;margin-top:34px;font-size:40px;height:78px;opacity:${1-mv}">${esc(D.ep.hook.range)}</div></div>`;
+  const rows = D.ep.items.map((it,k)=>{ const q = eo(p(lt,listAt+.25+k*.12,listAt+.6+k*.12));
+     const hiT = k===0? t1 : k===4? t5 : null; const hi = hiT? eb(p(t,hiT,hiT+.3)) * (k===0? (1-p(t,t5-.1,t5+.2)) : 1) : 0;
+     return `<div class="card" style="display:flex;align-items:center;gap:26px;padding:22px 28px;margin-bottom:22px;opacity:${q};transform:translateY(${(1-q)*80}px) scale(${1+.04*hi});border:${hi>.05?'4px solid var(--blue)':'2px solid rgba(30,27,75,.07)'}">
+       <div class="mono" style="background:${hi>.05?'var(--blue)':'var(--navy)'};color:#fff;font-size:38px;font-weight:800;padding:8px 16px;border-radius:14px">#${pad2(k+1)}</div>
+       <div style="flex:1;font-size:40px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.tab)}</div>
+       <div class="pill tag" style="height:58px;font-size:30px">${it.dir==='up'?'<span class="arrow" style="color:#7CF0A6">&#9650;</span>':'<span class="arrow" style="color:#FF8FA8">&#9660;</span>'}${esc(it.tag)}</div></div>`; }).join('');
+  const list = `<div style="position:absolute;left:50px;right:50px;top:440px">${rows}</div>`;
+  return topbar('Funded Tape', 'TOP 5', D.ep.hook.range, null, p(lt,.1,.5)) + `<div class="body">${PX}${title}${list}</div>`;
+}
+
+function outroScene(t, seg){
+  const lt = t-seg.start;
+  const pills = D.ep.items.map((it,k)=>{ const q = eb(p(lt,.1+k*.1,.45+k*.1));
+    return `<div class="card" style="display:inline-flex;align-items:center;gap:16px;padding:16px 24px;margin:0 14px 18px 0;border-radius:40px;transform:scale(${q});opacity:${cl(q)}">
+      <span class="mono" style="color:var(--blue);font-weight:800;font-size:34px">#${pad2(k+1)}</span><span style="font-size:36px;font-weight:800">${esc(it.tab)}</span><span style="font-size:30px;opacity:.6">${esc(it.tag)}</span></div>`; }).join('');
+  const c = eo(p(lt,.9,1.3));
+  return topbar('Recap', '05 / 05', 'See you next week', null, p(lt,.1,.5)) + `<div class="body">${PX}
+    <div style="position:absolute;left:50px;right:50px;top:60px">
+      <div style="font-size:96px;font-weight:900;letter-spacing:-3px;opacity:${cl(lt/.2)}">That's the week.</div>
+      <div style="margin-top:36px">${pills}</div>
+      <div class="card" style="margin-top:26px;background:var(--blue);color:#fff;padding:46px 44px;opacity:${c};transform:translateY(${(1-c)*60}px)">
+        <div style="font-size:70px;font-weight:900;line-height:1.1;letter-spacing:-1px">${esc(D.ep.outro.cta)}</div>
+        <div class="mono" style="font-size:34px;margin-top:22px;opacity:.85">Every week · sources linked</div></div>
+      <div style="margin-top:34px;font-size:40px;font-weight:800;opacity:${c}">&#9888; ${esc(D.ep.outro.nfa)}</div></div></div>`;
+}
+
+function coverScene(){
+  const tags = D.ep.items.slice(0,5).map((it,k)=>`<div class="card" style="display:flex;align-items:center;gap:22px;padding:20px 28px;margin-bottom:20px">
+     <div class="mono" style="background:var(--navy);color:#fff;font-size:40px;font-weight:800;padding:8px 16px;border-radius:14px">#${pad2(k+1)}</div>
+     <div style="flex:1;font-size:42px;font-weight:800">${esc(it.tab)}</div>
+     <div class="pill tag" style="height:60px;font-size:32px">${it.dir==='up'?'<span class="arrow" style="color:#7CF0A6">&#9650;</span>':'<span class="arrow" style="color:#FF8FA8">&#9660;</span>'}${esc(it.tag)}</div></div>`).join('');
+  return topbar('Funded Tape','TOP 5',D.ep.hook.range,null,1) + `<div class="body">${PX}
+    <div style="position:absolute;left:50px;right:50px;top:70px">
+      <div class="mono" style="font-size:40px;color:var(--blue);font-weight:800;letter-spacing:4px">FUNDED TAPE</div>
+      <div style="font-size:150px;font-weight:900;letter-spacing:-6px;line-height:.98;margin-top:14px">Top 5 prop firm stories</div>
+      <div class="pill counter mono" style="display:inline-flex;margin:34px 0 46px;font-size:44px;height:84px">${esc(D.ep.hook.range)}</div>
+      ${tags}</div></div>
+    <div class="cap" style="top:1440px">The week in under 2 minutes</div>
+    <div class="footer"><div class="brand"><b>&gt;</b>Funded Tape</div></div>`;
+}
+
+window.render = function(t){
+  const segs = D.timeline.segments; let s = segs.find(s=>t>=s.start && t<s.end) || (t<segs[0].start? segs[0] : segs[segs.length-1]);
+  let html;
+  if (s.name==='hook') html = hookScene(t, s);
+  else if (s.name==='outro') html = outroScene(t, s);
+  else html = itemScene(parseInt(s.name.slice(4))-1, t, s);
+  document.getElementById('stage').innerHTML = html + caption(t) + `<div class="footer"><div class="brand"><b>&gt;</b>Funded Tape</div></div>`;
+  fitTab();
+};
+function fitTab(){
+  const tab = document.querySelector('.tab'), right = document.querySelector('.right'); if(!tab||!right) return;
+  // the tag pill may be scaled while popping in; use its unscaled layout width
+  const rl = 1080 - 34 - right.scrollWidth;
+  tab.style.maxWidth = (rl - 190 - 18) + 'px';
+  let fs = 38; while (tab.scrollWidth > tab.clientWidth && fs > 26) { fs -= 2; tab.style.fontSize = fs + 'px'; }
+}
+window.renderCover = function(){ document.getElementById('stage').innerHTML = coverScene(); fitTab(); };
+</script></body></html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funded Tape status — Nov 25, 2026</title>
+<style>
+  :root {
+    --blue:#3B5BFD;
+    --ink:#1E1B4B;
+    --pink:#FF5C8A;
+    --yel:#FFD23F;
+    --cream:#FFF8EC;
+    --page:#FFE9C7;
+    --muted:#5B5875;
+    --green:#15803D;
+    --red:#BE123C;
+    --amber:#B45309;
+    --card:#fff;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    background:var(--page);
+    color:#2B2840;
+    font-family:"Trebuchet MS", Helvetica, Arial, sans-serif;
+    line-height:1.55;
+  }
+  a { color:var(--blue); }
+  a:hover { text-decoration-thickness:2px; }
+  .wrap { max-width:1080px; margin:0 auto; padding:20px 16px 56px; }
+  .sheet {
+    background:var(--cream);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(30,27,75,.10);
+  }
+  .mast {
+    background:var(--blue);
+    color:#fff;
+    padding:36px 36px 28px;
+  }
+  .kicker {
+    font-size:12px;
+    letter-spacing:1.4px;
+    font-weight:bold;
+    text-transform:uppercase;
+    color:#C7D2FE;
+    margin:0 0 8px;
+  }
+  .mast h1 {
+    font-family:"Arial Black", Arial, sans-serif;
+    font-size:38px;
+    line-height:1.1;
+    margin:0 0 10px;
+    letter-spacing:-.5px;
+  }
+  .mast p { margin:0; color:#E0E7FF; font-size:16.5px; max-width:820px; }
+  .bar {
+    background:var(--pink);
+    color:#fff;
+    font-weight:bold;
+    letter-spacing:.6px;
+    font-size:13px;
+    padding:10px 36px;
+  }
+  .notice {
+    margin:22px 36px 0;
+    background:var(--yel);
+    color:var(--ink);
+    border-radius:12px;
+    padding:14px 18px;
+    font-size:15.5px;
+  }
+  section { padding:28px 36px 8px; }
+  h2 {
+    color:var(--ink);
+    font-size:24px;
+    margin:0 0 12px;
+    line-height:1.25;
+  }
+  h3 { color:var(--ink); font-size:17px; margin:18px 0 8px; }
+  p, li { font-size:15.5px; }
+  .muted { color:var(--muted); font-size:13.5px; }
+  .card {
+    background:var(--card);
+    border:2px solid var(--ink);
+    border-radius:14px;
+    padding:16px 18px;
+    margin:0 0 14px;
+  }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .chip {
+    display:inline-block;
+    border-radius:20px;
+    padding:2px 10px;
+    font-size:11.5px;
+    font-weight:bold;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+  }
+  .chip-hold { background:#FFE4EC; color:var(--red); }
+  .chip-ok { background:#DCFCE7; color:var(--green); }
+  .chip-warn { background:#FEF3C7; color:var(--amber); }
+  .chip-info { background:#E0E7FF; color:var(--blue); }
+  table.data {
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:14px;
+    overflow:hidden;
+    font-size:14.5px;
+    margin:0 0 16px;
+  }
+  table.data th, table.data td {
+    padding:9px 11px;
+    border-top:1px solid #EEE7DA;
+    vertical-align:top;
+    text-align:left;
+  }
+  table.data thead th {
+    background:var(--ink);
+    color:#fff;
+    border-top:none;
+    font-size:12.5px;
+    letter-spacing:.4px;
+  }
+  table.data tbody tr:first-child th,
+  table.data tbody tr:first-child td { border-top:none; }
+  table.data code, code {
+    font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size:12.5px;
+    background:#F4F0E6;
+    padding:1px 5px;
+    border-radius:4px;
+    color:var(--ink);
+  }
+  ul.clean { padding-left:20px; margin:6px 0 10px; }
+  ul.clean li { margin:5px 0; }
+  .blockers li { margin:7px 0; }
+  footer {
+    text-align:center;
+    font-size:12.5px;
+    color:var(--muted);
+    padding:22px 20px 30px;
+  }
+  /* workflow */
+  .flow {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 6px;
+    margin:8px 0 16px;
+  }
+  .node {
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:12px;
+    padding:10px 12px;
+    min-width:118px;
+    text-align:center;
+  }
+  .node b { display:block; color:var(--ink); font-size:13.5px; }
+  .node span { display:block; font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .node.blocked { border-style:dashed; opacity:.85; background:#FFF5F7; }
+  .arrow { color:var(--blue); font-weight:bold; font-size:20px; padding:0 2px; }
+  .sched {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:8px 0 14px;
+  }
+  .sched .ev {
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:12px;
+    padding:12px 13px;
+  }
+  .sched .ev b.k {
+    display:block;
+    color:var(--blue);
+    font-size:11.5px;
+    letter-spacing:.8px;
+    margin-bottom:4px;
+  }
+  .src-group { margin-bottom:14px; }
+  .src-group h3 { margin-top:0; }
+  .toc {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .toc a {
+    display:inline-block;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:20px;
+    padding:4px 12px;
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:bold;
+    color:var(--ink);
+  }
+  @media (max-width:800px) {
+    .mast, .bar, section, .notice { padding-left:18px; padding-right:18px; }
+    .mast h1 { font-size:28px; }
+    .grid2, .grid3, .sched { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap"><div class="sheet">
+
+<div class="mast">
+  <div class="kicker">Internal status report &middot; Funded Tape</div>
+  <h1>Funded Tape project status</h1>
+  <p>As of Wednesday, November 25, 2026, America/Edmonton. Prepared for pomo651. Facts below were checked against local project files, GitHub, and Gmail this afternoon. Nothing in this report was sent, scheduled, published, or pushed.</p>
+</div>
+<div class="bar">WEEKLY NEWSLETTER &nbsp;&middot;&nbsp; NOT DAILY &nbsp;&middot;&nbsp; DRAFTS ONLY &mdash; NO CONFIRMED SENDS &nbsp;&middot;&nbsp; DESIGN B</div>
+
+<div class="notice">
+  <b>Correction:</b> Funded Tape is a <b>weekly</b> newsletter, not a daily one. The format is a Sunday (or, in the first-four-edition test, alternating Monday) Top 5 for prop firm traders. Collection runs on a rolling seven-day window.
+</div>
+
+<section>
+  <ul class="toc">
+    <li><a href="#status">1. Current status</a></li>
+    <li><a href="#team">2. Team and workflow</a></li>
+    <li><a href="#repo">3. Repo</a></li>
+    <li><a href="#sources">4. News sources</a></li>
+    <li><a href="#save">5. What we save</a></li>
+    <li><a href="#next">6. Next steps</a></li>
+  </ul>
+</section>
+
+<section id="status">
+  <h2>1. Current status</h2>
+  <p>Three final drafts exist for editions #1–#3. <b>No edition has a confirmed send.</b> <code>cutoffs.md</code> still says approval and send were “not confirmed (check Beehiiv)” for all three. A search of the connected Gmail account found <b>zero</b> messages containing “Funded Tape,” and no Beehiiv post-sent or publication receipts. Marketing and onboarding mail from Beehiiv to <code>lego423801@gmail.com</code> starts around Nov 3–4, which is consistent with an account existing, but it does not prove a publication was sent. This agent could not call <code>GetMcpServerStatus</code> in this session; Beehiiv is not among the connected MCP namespaces (those present were user-Gmail, cursor-github, cursor-origin, and x). That matches the last known status: <b>needsAuth, never connected</b>. Whether you sent anything by hand in the Beehiiv UI is <b>unknown</b>.</p>
+  <p class="muted">File modification times under <code>/workspace/prop-firm-newsletter/</code> are all flattened to Nov 25, 2026, 11:48 AM America/Edmonton (a workspace copy), so they are not used as creation dates. Status comes from filenames and the dates written inside the documents.</p>
+
+  <table class="data">
+    <thead>
+      <tr>
+        <th>Edition</th>
+        <th>Planned send</th>
+        <th>Built locally?</th>
+        <th>Approval</th>
+        <th>Sent?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Practice / demo</td>
+        <td>n/a (unpublished)</td>
+        <td>Yes: <code>demo-edition-2026-10-26_11-01.txt</code>, preview HTML/PNGs for Oct 27–Nov 3, and a practice Short in <code>video/</code></td>
+        <td>Practice only</td>
+        <td><span class="chip chip-hold">Not sent</span></td>
+      </tr>
+      <tr>
+        <td>#1</td>
+        <td>Sun Nov 8, 9:00 AM ET<br>(8:00 AM Edmonton)</td>
+        <td>Yes: FINAL <code>.md</code>, <code>.html</code>, <code>-beehiiv-clean.html</code>, desktop PNG, notes to KFC (window Oct 31–Nov 7)</td>
+        <td>Final draft ready Sat Nov 7. <code>cutoffs.md</code>: send not confirmed.</td>
+        <td><span class="chip chip-hold">Not confirmed</span></td>
+      </tr>
+      <tr>
+        <td>#2</td>
+        <td>Mon Nov 16, 7:00 AM ET<br>(6:00 AM Edmonton)</td>
+        <td>Yes: Friday working draft + FINAL pack (window Nov 7–15)</td>
+        <td>Draft sent to you for approval Sun Nov 15 ~5:30 PM ET. Approval and send not confirmed.</td>
+        <td><span class="chip chip-hold">Not confirmed</span></td>
+      </tr>
+      <tr>
+        <td>#3</td>
+        <td>Sun Nov 22, 9:00 AM ET<br>(8:00 AM Edmonton)</td>
+        <td>Yes: Friday working draft + FINAL pack (17/17 links checked OK; window Nov 15–21). MyFundedFutures held for #4.</td>
+        <td>Reviewed and sent to you for approval Sat Nov 21 ~5:30 PM ET. Approval and send not confirmed.</td>
+        <td><span class="chip chip-hold">Not confirmed</span></td>
+      </tr>
+      <tr>
+        <td>#4</td>
+        <td>Mon Nov 30, 7:00 AM ET<br>(6:00 AM Edmonton)</td>
+        <td>Feed running list only, including a Wed Nov 25 ~12:50 PM ET sweep. No Editor draft. No Pulse edition-#4 file in <code>/workspace/pulse/</code>.</td>
+        <td>Planned. Cutoff Sun Nov 29, 5:00 PM ET; draft due Sun Nov 29, 8:00 PM ET.</td>
+        <td><span class="chip chip-info">Not yet due</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="chip chip-warn">Video pipeline</span>
+      <h3 style="margin-top:8px">Reel / <code>video/</code></h3>
+      <p>The Short pipeline is in place (<code>build.sh</code>, <code>render.py</code>, <code>make_audio.py</code>, <code>template.html</code>, <code>episode.json</code>, <code>script.txt</code>). The only rendered episode is the practice Short for Oct 27–Nov 3: <code>funded-tape-short-2026-10-27_11-03.mp4</code> plus a cover PNG and YouTube metadata. That metadata still has a <code>[newsletter link]</code> placeholder. There are no Shorts for editions #1–#3, which fits a “Short after an approved send” rule. No evidence was found of a YouTube upload; publish still requires your explicit OK.</p>
+    </div>
+    <div class="card">
+      <span class="chip chip-warn">Proposal B</span>
+      <h3 style="margin-top:8px">Still unanswered</h3>
+      <p>On Nov 3 the internal memo <code>proposals/video-newsletter-content-strategy.html</code> recommended <b>Proposal B</b>: the Short stays a Top 5, and the email adds a capped “More this week” (3–6 verified quick hits) plus a small rule-change tracker. No recorded decision from you was found in the project files or in this bot’s memory. Editions #1–#3 were still built as Top 5 emails.</p>
+    </div>
+  </div>
+
+  <h3>Open blockers</h3>
+  <ul class="blockers clean">
+    <li><b>Beehiiv is not connected</b> to this bot, so Drew cannot paste, schedule, or confirm a send from here.</li>
+    <li><b>No confirmed approval</b> from you for editions #1, #2, or #3.</li>
+    <li><b>No confirmed send</b> of any edition, including the practice issue. The planned Sun/Mon click-rate test therefore has no results.</li>
+    <li><b>Footer placeholders remain</b> in the template and in every edition’s <code>-beehiiv-clean.html</code>: Unsubscribe and Preferences still point at <code>href="#"</code>, and the line <code>[Mailing address placeholder]</code> is still in the footer.</li>
+    <li><b>Proposal B is undecided.</b></li>
+    <li><b>GitHub is stale.</b> The repo has not been updated since Nov 3. Editions #1–#3, the template, designs, video pipeline, proposals, and schedule files exist only locally (see section 3).</li>
+    <li>Edition #4 is already being collected by Feed, but the Editor draft is not started, and a Pulse #4 file was not found in the workspace.</li>
+  </ul>
+</section>
+
+<section id="team">
+  <h2>2. The team and how they work together</h2>
+  <p>Funded Tape is run by a small bot team under you. The early CEO plan (Nov 1) described five specialist “watcher” bots plus an editor. The team that actually operates is the six roles below. Sources: the GitHub <a href="https://github.com/pomo651/prop-firm-newsletter/blob/main/README.md">README</a>, <code>send-schedule.md</code>, <code>cutoffs.md</code>, the Nov 3 proposal, and Feed/Pulse output files.</p>
+
+  <table class="data">
+    <thead>
+      <tr><th>Bot</th><th>Role</th><th>What they produce</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>KFC</b><br><span class="muted">CEO &middot; id <code>1de98246-53f1-4de7-ae2b-59caea327eb1</code></span></td>
+        <td>Producer: plans the week, ranks items, QA, owns <code>cutoffs.md</code></td>
+        <td>Shortlists and fact-check guidance; nothing ships without your OK</td>
+      </tr>
+      <tr>
+        <td><b>Feed</b></td>
+        <td>Official sources</td>
+        <td>Running lists and FINAL official-source briefs in <code>/workspace/feed/</code></td>
+      </tr>
+      <tr>
+        <td><b>Pulse</b></td>
+        <td>Community sources</td>
+        <td>Interim and FINAL community briefs in <code>/workspace/pulse/</code> (X, Reddit, YouTube, plus press follow-ups)</td>
+      </tr>
+      <tr>
+        <td><b>Editor</b></td>
+        <td>Top 5 and drafting</td>
+        <td>Friday working drafts and Saturday/Sunday FINAL packs in <code>editions/</code></td>
+      </tr>
+      <tr>
+        <td><b>Reel</b><br><span class="muted">id <code>e43ca5ef-a42c-4e3a-ac03-3681df5b04d7</code></span></td>
+        <td>Weekly voiced YouTube Short from an approved edition</td>
+        <td>Pipeline and one practice Short in <code>video/</code></td>
+      </tr>
+      <tr>
+        <td><b>Drew</b></td>
+        <td>Beehiiv and GitHub; keeps the plan and repo updated</td>
+        <td>Repo setup (PR #1). Beehiiv and later repo updates are still outstanding.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Weekly flow</h3>
+  <div class="flow">
+    <div class="node"><b>Feed + Pulse</b><span>Collect in the window</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>KFC</b><span>Ranks and QA</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>Editor</b><span>Drafts the Top 5</span></div>
+    <div class="arrow">→</div>
+    <div class="node"><b>pomo651</b><span>Approves</span></div>
+    <div class="arrow">→</div>
+    <div class="node blocked"><b>Beehiiv send</b><span>Blocked: not connected</span></div>
+    <div class="arrow">→</div>
+    <div class="node blocked"><b>Reel Short</b><span>After an approved send</span></div>
+  </div>
+  <p>Nothing is uploaded or emailed until you approve it. In practice, Feed and Pulse keep a running list through the week, KFC ranks, Editor usually files a Friday working draft and a FINAL after the cutoff, and you are asked to approve in the evening so the issue can be scheduled for the next morning. Reel is meant to cut the Short from the approved edition.</p>
+
+  <h3>Schedule (ET is the source of truth)</h3>
+  <p>Edmonton is UTC−6 year-round; Eastern Time is UTC−5 this winter, so Edmonton is one hour behind ET. Times below follow <code>send-schedule.md</code> (decided Nov 3, with the Edmonton offset corrected the same day).</p>
+  <div class="sched">
+    <div class="ev"><b class="k">CUTOFF</b>Sat 5:00 PM ET<br>4:00 PM Edmonton</div>
+    <div class="ev"><b class="k">DRAFT READY</b>Sat 8:00 PM ET<br>7:00 PM Edmonton</div>
+    <div class="ev"><b class="k">APPROVE BY</b>Sat 10:00 PM ET<br>9:00 PM Edmonton</div>
+    <div class="ev"><b class="k">SEND</b>Sun 9:00 AM ET<br>8:00 AM Edmonton</div>
+  </div>
+  <p>Monday-send weeks in the first-four-edition test (Nov 16 and Nov 30) shift one day: cutoff Sun 5:00 PM ET (4:00 PM Edmonton), draft Sun 8:00 PM ET (7:00 PM Edmonton), approve by Sun 10:00 PM ET (9:00 PM Edmonton), send Mon 7:00 AM ET (6:00 AM Edmonton). The test alternates Sun Nov 8 and Sun Nov 22 at 9:00 AM ET with Mon Nov 16 and Mon Nov 30 at 7:00 AM ET, comparing unique click rate and replies within 48 hours. It cannot run until editions actually send. The GitHub README still describes an older Mon–Thu collect / Friday draft cadence; <code>send-schedule.md</code> and <code>cutoffs.md</code> are the later source of truth.</p>
+</section>
+
+<section id="repo">
+  <h2>3. Repo</h2>
+  <p>GitHub repo: <a href="https://github.com/pomo651/prop-firm-newsletter">https://github.com/pomo651/prop-firm-newsletter</a>. The API reports it as <b>public</b>, default branch <b>main</b>. Created Nov 3, 2026, 11:24 AM America/Edmonton. Last push Nov 3, 2026, 11:29 AM America/Edmonton. Local path <code>/workspace/prop-firm-newsletter</code> is a flat working copy, not a git checkout.</p>
+
+  <h3>Commits on main</h3>
+  <table class="data">
+    <thead><tr><th>SHA</th><th>When (America/Edmonton)</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://github.com/pomo651/prop-firm-newsletter/commit/01c91ce0015655316f6392b6202d4dabe5728486"><code>01c91ce</code></a></td>
+        <td>Nov 3, 2026, 11:24 AM</td>
+        <td>Initial commit (pomo651)</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/pomo651/prop-firm-newsletter/commit/a9e4ac065d90329805292488d688279234a31aa5"><code>a9e4ac0</code></a></td>
+        <td>Nov 3, 2026, 11:27 AM</td>
+        <td>Add the Funded Tape repo layout and source files (Cursor Agent, co-authored by pomo651)</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/pomo651/prop-firm-newsletter/commit/cbec53a4c7a177ff7dd9d5e63cf3af9fbe5948cd"><code>cbec53a</code></a></td>
+        <td>Nov 3, 2026, 11:29 AM</td>
+        <td>Merge pull request #1 from pomo651/cursor/funded-tape-initial-contents-6de9</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Pull requests: only <a href="https://github.com/pomo651/prop-firm-newsletter/pull/1">PR #1</a> — “Add Funded Tape plan, demo edition, and repo layout.” Opened and merged Nov 3, 2026, 11:29 AM America/Edmonton. The head branch <code>cursor/funded-tape-initial-contents-6de9</code> is still on the remote. No later PRs.</p>
+
+  <h3>What is on GitHub (main)</h3>
+  <ul class="clean">
+    <li><code>README.md</code>, <code>.gitignore</code></li>
+    <li><code>plan/prop-firm-ceo-plan-v1.html</code></li>
+    <li><code>editions/2026-10-26_11-01-demo.txt</code> (practice draft; never sent)</li>
+    <li><code>research/platform-pricing-2026-11-03.txt</code> (Beehiiv free plan chosen for alpha)</li>
+    <li><code>scripts/build_html.py</code> (rebuilds the CEO plan HTML)</li>
+  </ul>
+
+  <h3>Local only — not yet pushed</h3>
+  <p>Almost everything after Nov 3 lives only under <code>/workspace/prop-firm-newsletter/</code> (and the sibling Feed/Pulse folders). That includes:</p>
+  <ul class="clean">
+    <li>The Design B template (<code>funded-tape-template.html</code>) and the whole <code>designs/</code> folder</li>
+    <li>All edition #1–#3 drafts, finals, Beehiiv-clean HTML, desktop PNGs, notes, and builders</li>
+    <li><code>cutoffs.md</code> and <code>send-schedule.md</code></li>
+    <li>The video pipeline and the practice Short</li>
+    <li>The Proposal A/B memo in <code>proposals/</code></li>
+    <li>Demo email HTML/PNGs and <code>build_demo_email.py</code> / <code>shoot.py</code></li>
+  </ul>
+  <p>The local tree is also flatter than the repo: the plan, demo edition, pricing notes, and <code>build_html.py</code> sit at the project root instead of <code>plan/</code>, <code>editions/</code>, <code>research/</code>, and <code>scripts/</code>. Feed and Pulse work is saved under <code>/workspace/feed/</code> and <code>/workspace/pulse/</code>, which are not in the GitHub repo at all.</p>
+</section>
+
+<section id="sources">
+  <h2>4. News sources</h2>
+  <p>Two layers: the Nov 1 source map in the CEO plan, and the sources Feed and Pulse actually opened in their edition files. URLs below are real links from those files. Affiliate-funded review sites are used cautiously; rule changes are supposed to be confirmed on the firm’s own page.</p>
+
+  <div class="card src-group">
+    <h3>Official firm X accounts</h3>
+    <p>The plan’s Nov 1 verified list: <a href="https://x.com/FTMO_com">@FTMO_com</a>, <a href="https://x.com/Topstep">@Topstep</a> (also <a href="https://x.com/AskTopstep">@AskTopstep</a>, <a href="https://x.com/TopstepTV">@TopstepTV</a>), <a href="https://x.com/ApexTradeFund">@ApexTradeFund</a>, <a href="https://x.com/FundedNext">@FundedNext</a>, <a href="https://x.com/fundingpips">@fundingpips</a>, <a href="https://x.com/the5erstrading">@the5erstrading</a>, <a href="https://x.com/GoatFunded">@GoatFunded</a>, <a href="https://x.com/Tradeify">@Tradeify</a>, <a href="https://x.com/MyFundedFutures">@MyFundedFutures</a>, <a href="https://x.com/AlphaCapitalUK">@AlphaCapitalUK</a>, <a href="https://x.com/BlueGuardiancom">@BlueGuardiancom</a>, <a href="https://x.com/E8Markets">@E8Markets</a>, <a href="https://x.com/earn2trade">@earn2trade</a>, <a href="https://x.com/FFNFunding">@FFNFunding</a>.</p>
+    <p>Feed’s Nov 25 edition-#4 sweep also checked official X (posts only, no replies or retweets) for FN Futures, Alpha Futures, TPT, BrightFunded, Funded Family One, Lucid, Goat Funded Futures / Perps, MyForexFunds, FTM Perps, Atlas Funded, FFN Perps, and BluSky. Handles used in later Feed files include <a href="https://x.com/TakeProfitLLC">@TakeProfitLLC</a> and <a href="https://x.com/fnfutures">@fnfutures</a>. The Nov 1 plan had not yet found official handles for Take Profit Trader, Lucid Trading, or TradeDay.</p>
+  </div>
+
+  <div class="card src-group">
+    <h3>Official help centers, blogs, and product pages (Feed)</h3>
+    <p>Examples actually cited in Feed briefs, not an exhaustive catalog:</p>
+    <ul class="clean">
+      <li>FTMO: <a href="https://ftmo.com/en/blog/trading-updates/trading-update-8-oct-2026/">CFD trading updates</a>, <a href="https://ftmo.com/en/futures/trading-updates/">Futures trading updates</a>, <a href="https://ftmo.com/en/forbidden-trading-practices/">Forbidden Trading Practices</a></li>
+      <li>Topstep: <a href="https://www.topstep.com/">topstep.com</a>, <a href="https://help.topstep.com/en/articles/15520357-topstep-labs">Help — Topstep Labs</a></li>
+      <li>FundedNext: <a href="https://help.fundednext.com/en/articles/17718088-cfds-fnl-004">CFD help (FNL:004)</a>, <a href="https://helpfutures.fundednext.com/en/articles/17229713-fundednext-futures-rapid-pro-fundednext-account-all-rules">Futures Rapid Pro rules</a>, <a href="https://helpfutures.fundednext.com/en/articles/17229779-fundednext-futures-rapid-daily-fundednext-account-all-rules">Rapid Daily rules</a></li>
+      <li>Tradeify: <a href="https://help.tradeify.co/en/articles/17780377-funded-reset-faq">Funded Reset FAQ</a> and other Tradeify help articles</li>
+      <li>Goat Funded Futures: <a href="https://help.goatfundedfutures.com/en/articles/17838201-goat-access-specifications-rules-and-payouts">GOAT Access rules</a></li>
+      <li>Take Profit Trader: <a href="https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/40739474201501-Classic-vs-EOD-vs-Intraday-Which-Plan-Is-Right-for-You">Classic vs. EOD vs. Intraday</a></li>
+      <li>Also opened across Feed sweeps: Blue Guardian and BrightFunded futures help, FundingPips help, Earn2Trade help, Lucid support, PipFarm changelog (<a href="https://updates.pipfarm.com/changelog/payout-caps-no-more-dollar5000-limit">example</a>), Alpha Futures posts, MyFundedFutures / MyForexFunds pages.</li>
+    </ul>
+  </div>
+
+  <div class="card src-group">
+    <h3>Trade press, change logs, and data</h3>
+    <ul class="clean">
+      <li><a href="https://www.financemagnates.com/forex/">Finance Magnates (forex)</a> — heavily used by both Feed and Pulse</li>
+      <li><a href="https://fundedtruth.com/prop-firm-news/">Funded Truth prop firm news</a></li>
+      <li><a href="https://fxnewsgroup.com/">FX News Group</a>, <a href="https://www.tradeinformer.com/">TradeInformer</a>, Prop Desk (<a href="https://propdesknews.com/">propdesknews.com</a>)</li>
+      <li>Change logs and roundups in the plan: <a href="https://fundedyield.com/en/changelog/2026-10">FundedYield</a>, <a href="https://proveyouredge.com/articles/prop-rules-weekly-2026-10-23">PYE Markets weekly rules</a>, <a href="https://propfirmloop.com/updates/">Prop Firm Loop updates</a>, <a href="https://www.proptraderz.com/prop-firm-rule-changes-october-2026/">PropTraderz</a></li>
+      <li>Data: <a href="https://propdatalab.com/prop-firm-pass-rates/">PropDataLab</a>, <a href="https://proptradecenter.com/industry-data/estimates/market-size">PropTradeCenter</a>, <a href="https://x.com/payoutjunction">Payout Junction on X</a></li>
+      <li>Feed’s Nov 25 sweep also checked CME Group and looked for prop-specific CFTC, FCA, or ASIC actions (none new found in that sweep). The PropScorer change log is mentioned in KFC’s notes; no URL was recorded.</li>
+    </ul>
+  </div>
+
+  <div class="card src-group">
+    <h3>Community (Pulse)</h3>
+    <p>Pulse’s working method, from its scan files: public X reads via the X connector; Reddit RSS (often rate-limited); YouTube follow-ups; and press cross-checks. Reddit JSON was often blocked (403/429).</p>
+    <ul class="clean">
+      <li>Reddit, from Pulse’s <code>raw/fetch.sh</code> and the plan: <a href="https://www.reddit.com/r/PropFirms">r/PropFirms</a>, <a href="https://www.reddit.com/r/propfirm">r/propfirm</a>, <a href="https://www.reddit.com/r/Daytrading">r/Daytrading</a>, <a href="https://www.reddit.com/r/FuturesTrading">r/FuturesTrading</a>, <a href="https://www.reddit.com/r/Forex">r/Forex</a>, <a href="https://www.reddit.com/r/Topstep">r/Topstep</a>, <a href="https://www.reddit.com/r/apextraderfunding">r/apextraderfunding</a>, <a href="https://www.reddit.com/r/FTMO">r/FTMO</a>, <a href="https://www.reddit.com/r/FundedNext">r/FundedNext</a>, <a href="https://www.reddit.com/r/Tradeify">r/Tradeify</a>, plus the plan’s <a href="https://www.reddit.com/r/Forexstrategy">r/Forexstrategy</a> and <a href="https://www.reddit.com/r/TopstepCommunity">r/TopstepCommunity</a>.</li>
+      <li>X commentators in the plan (examples): <a href="https://x.com/DodgysDD">@DodgysDD</a>, <a href="https://x.com/arjoio">@arjoio</a>, <a href="https://x.com/traderkane">@traderkane</a>, <a href="https://x.com/TrustedPropHub">@TrustedPropHub</a>, <a href="https://x.com/TheH0n3stTrader">@TheH0n3stTrader</a>, <a href="https://x.com/NickDoesFutures">@NickDoesFutures</a>. Pulse briefs also track dispute and recap accounts as they appear, labeled as allegations vs. confirmed.</li>
+      <li>YouTube creators in the plan include <a href="https://www.youtube.com/@JeaFxForexTrading">JeaFx</a>, <a href="https://www.youtube.com/@TradesbyMatt">Trades by Matt</a>, <a href="https://www.youtube.com/@ForexPropReviews">Forex Prop Reviews</a>, plus official channels such as TopstepTV. Pulse cited specific videos when a story moved there.</li>
+      <li>The plan also lists official Discords (invites only from each firm’s own site), Telegram channels such as <a href="https://t.me/FundedNextOfficialCommunity">FundedNext Official Community</a>, and review/comparison sites including <a href="https://propfirmmatch.com/">Prop Firm Match</a> (treated as news, not a neutral source, after the October affiliate-tracking story). Competitor newsletters noted in the plan: <a href="https://www.proptraders.io/subscribe">Prop Traders Weekly</a>, <a href="https://propweekly.com/newsletter">Prop Weekly</a>, <a href="https://proptraders.club/">Prop Traders Club</a>.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="save">
+  <h2>5. What we save</h2>
+  <p>Primary working tree: <code>/workspace/prop-firm-newsletter/</code>. Feed and Pulse logs live beside it. The GitHub copy is only the Nov 3 snapshot described above. The store named in the task, <code>/cursor/stores/store-6cc9a836-9da1-4ee7-8916-a940aad459d0</code>, held only this agent’s working assets today — not a newsletter archive. Pulse notes also point at canvases in a different store (<code>store-4f2dc487-0483-4382-b41b-db572b6c55a7</code>); that store was not fully inventoried here.</p>
+
+  <table class="data">
+    <thead>
+      <tr><th>Artifact</th><th>Where</th><th>What it’s for</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Edition markdown</td>
+        <td><code>editions/*-FINAL.md</code> and <code>*-WORKING-DRAFT-fri.md</code></td>
+        <td>Readable Top 5 copy, sources, and caveats for KFC and you</td>
+      </tr>
+      <tr>
+        <td>Edition HTML</td>
+        <td><code>editions/*-FINAL.html</code> (and working-draft HTML)</td>
+        <td>Design B preview, including any draft banner or subject box</td>
+      </tr>
+      <tr>
+        <td>Beehiiv-clean HTML</td>
+        <td><code>editions/*-beehiiv-clean.html</code></td>
+        <td>Same email with the draft banner/subject box removed, meant for pasting into Beehiiv. Footers still have placeholders.</td>
+      </tr>
+      <tr>
+        <td>Desktop preview PNGs</td>
+        <td><code>editions/*-desktop.png</code> (preview also has a mobile PNG)</td>
+        <td>Visual QA of the rendered email</td>
+      </tr>
+      <tr>
+        <td>Notes to KFC</td>
+        <td><code>editions/*-notes-to-kfc.md</code> and dated <code>*-verify-for-kfc.md</code></td>
+        <td>Verification log, link checks, and late edits</td>
+      </tr>
+      <tr>
+        <td>Edition builders</td>
+        <td><code>editions/build_*.py</code></td>
+        <td>Scripts that generate that edition’s HTML from the template</td>
+      </tr>
+      <tr>
+        <td>Backups</td>
+        <td><code>editions/bak-ed3/</code>, <code>*.bak-kfc</code>, cutoff/schedule <code>.bak*</code> files</td>
+        <td>Pre-edit copies</td>
+      </tr>
+      <tr>
+        <td>Email template</td>
+        <td><code>funded-tape-template.html</code> (from <code>designs/design-b-playful.html</code>)</td>
+        <td>Locked Design B look: blue header, cream body, yellow “Why it matters” boxes</td>
+      </tr>
+      <tr>
+        <td>Design explorations</td>
+        <td><code>designs/</code> (A–D HTML and desktop/mobile PNGs, plus <code>compare-desktop.png</code>)</td>
+        <td>The Nov 3 style bake-off that chose Design B</td>
+      </tr>
+      <tr>
+        <td>Video outputs and pipeline</td>
+        <td><code>video/</code> — practice <code>.mp4</code>, cover PNG, <code>episode.json</code>, script, renderer, audio builder, YouTube metadata</td>
+        <td>Reel’s Short pipeline; only the practice week has a rendered file</td>
+      </tr>
+      <tr>
+        <td>Proposals</td>
+        <td><code>proposals/video-newsletter-content-strategy.html</code> (+ desktop PNG)</td>
+        <td>Proposal A vs B (Short/newsletter scope). Recommendation only; no decision on file.</td>
+      </tr>
+      <tr>
+        <td>Schedule and windows</td>
+        <td><code>send-schedule.md</code>, <code>cutoffs.md</code></td>
+        <td>Cadence, time zones, and per-edition status. KFC owns cutoffs.</td>
+      </tr>
+      <tr>
+        <td>CEO plan and pricing notes</td>
+        <td>Local root (and on GitHub under <code>plan/</code> and <code>research/</code>)</td>
+        <td>Source map, bot model, alpha/beta roadmap; Beehiiv free-plan choice</td>
+      </tr>
+      <tr>
+        <td>Feed briefs</td>
+        <td><code>/workspace/feed/</code> — running lists, X/web sweeps, edition FINALS, plus <code>tmp/</code></td>
+        <td>Official-source collection for each edition, including the live #4 running list</td>
+      </tr>
+      <tr>
+        <td>Pulse briefs and raw scans</td>
+        <td><code>/workspace/pulse/</code> and <code>pulse/raw/</code> (Reddit RSS, X/web scans, YouTube HTML)</td>
+        <td>Community collection. FINAL files exist for editions #1 and #3; edition #2 has a Thursday interim. No #4 file found.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="next">
+  <h2>6. Next steps / recommended actions</h2>
+  <ol>
+    <li><b>Connect Beehiiv</b> (or confirm in the Beehiiv UI whether any of #1–#3 went out). Until that happens, send status stays unconfirmed and Drew cannot schedule.</li>
+    <li><b>Say whether #1–#3 should still go out, be retired, or be folded into #4.</b> Their planned send times have all passed.</li>
+    <li><b>Replace footer placeholders</b> (mailing address, real Unsubscribe / Preferences URLs) before any Beehiiv paste.</li>
+    <li><b>Decide Proposal B</b> (Top 5 only vs. Top 5 plus capped “More this week”) so Editor can apply it on the next draft.</li>
+    <li><b>Push the local tree to GitHub</b> after a cleanup so the repo matches the working folders (editions, template, schedules, video, proposals). Optional: add Feed/Pulse briefs too.</li>
+    <li><b>Edition #4</b> is the live window: cutoff Sun Nov 29, 5:00 PM ET; draft due 8:00 PM ET; approve by 10:00 PM ET; planned send Mon Nov 30, 7:00 AM ET (6:00 AM Edmonton). Feed has already started the running list.</li>
+  </ol>
+</section>
+
+<footer>
+  Funded Tape internal report &middot; November 25, 2026, America/Edmonton &middot; Design B colors &middot; Not published &middot; No sends, schedules, or pushes were made while compiling this
+</footer>
+
+</div></div>
+</body>
+</html>
