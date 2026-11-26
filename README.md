@@ -9,25 +9,31 @@ Funded Tape is a daily newsletter for prop firm traders. Each issue is the thing
 
 ## Daily cadence (changed from weekly on Nov 25, 2026, owner's decision)
 
-Every day the watchers collect, KFC picks, and the Editor drafts that day's edition and posts it to the site as a draft. The owner approves it, and then it is published. KFC proposes the exact daily times. (The old weekly rhythm was: collect Mon–Thu, draft Fri, approve Sat, send Sun.)
+Every day the watchers collect, FT-PM picks, and FT-editor drafts that day's edition and posts it to the site as a draft. The owner approves it, and then it is published. Exact daily times are still being planned: FT-PM has proposed a 5 AM ET sweep, picks by 6, draft by 6:30, and publish around 7, but pomo651 has not decided yet. (The old weekly rhythm was: collect Mon–Thu, draft Fri, approve Sat, send Sun.)
 
 ## Bot team
 
-- **KFC** is the CEO: plans each day, assigns work, and picks what makes the edition.
-- **Feed** covers official firm sources and trade press (help centers, rule pages, firm announcements, industry news).
-- **Pulse** covers community sources: Reddit, X, YouTube, Discord, and reviews.
-- **Editor** writes the daily draft.
+Roles, handoffs, and site rules are in [`plan/TEAM.md`](plan/TEAM.md). In short:
 
-Nothing sends until the owner approves it.
+- **FT-PM** (formerly KFC) runs the project, fact-checks items, and marks picks.
+- **FT-sources** (formerly Feed) covers official firm sites and announcements.
+- **FT-community** (formerly Pulse) covers Reddit, X, and community sources.
+- **FT-editor** (formerly Editor) writes the daily draft and posts it as status `draft`.
+- **FT-video** (formerly Reel) makes Shorts (Beta).
+- **Drew** owns the repo, Beehiiv, and plan upkeep.
+
+The GitHub repo is the source of truth. Nothing sends until pomo651 approves and publishes it.
 
 ## Layout
 
-- `plan/` — static CEO plan. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`.
-- `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent.
+- `plan/` — static CEO plan and the team doc. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`. Team roles and handoffs: [`plan/TEAM.md`](plan/TEAM.md).
+- `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent. FINAL drafts of weekly editions #1–#3 (never sent) are here too; see **Archive / newsletter files**.
 - `research/` — background notes. `research/platform-pricing-2026-11-03.txt` is the platform check that chose Beehiiv's free plan.
-- `scripts/` — helpers. `scripts/build_html.py` generates the plan HTML.
+- `scripts/` — helpers. `scripts/build_html.py` generates the plan HTML. Edition and screenshot builders live here too.
 - `site/` — the Funded Tape website (Next.js on Vercel). See **Website** below.
 - `supabase/migrations/` — database schema for the website.
+- `designs/`, `video/`, `proposals/`, `reports/` — template explorations, the Shorts pipeline, strategy proposals, and status reports. See **Archive / newsletter files**.
+- `funded-tape-template.html`, `cutoffs.md`, `send-schedule.md` — the Design B email template and the old weekly window/send schedule.
 
 Future editions use `editions/YYYY-MM-DD.md`, named for the day the issue covers (the demo file keeps its old weekly name).
 
@@ -57,3 +63,14 @@ The left sidebar has only these two pages for now.
 **Env vars** (Vercel production + preview, and `site/.env.local` locally; names in `site/.env.example`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOT_TOKEN`, `PREVIEW_KEY`.
 
 **Run locally:** `cd site && npm install && npm run dev`. **Deploy:** `cd site && vercel deploy --prod`.
+
+## Archive / newsletter files
+
+Synced from the team's local working copy on Nov 25, 2026. These files had not been committed after the initial repo layout.
+
+- `editions/` also holds the FINAL drafts of editions #1 (Nov 8), #2 (Nov 16), and #3 (Nov 22): markdown, HTML, Beehiiv-clean HTML, a desktop preview PNG, and notes to FT-PM (filenames still say KFC), plus the Nov 6–7 verify-for-kfc notes. **Editions #1–#3 were drafted for the old weekly cadence and were never sent.**
+- `funded-tape-template.html` and `designs/` — the Design B email template and the A–D design explorations (HTML + desktop/mobile previews).
+- `video/` — Shorts pipeline code and small assets (`build.sh`, `render.py`, `make_audio.py`, template, cover, script, metadata). Large rendered MP4s are not stored in the repo.
+- `proposals/` and `reports/` — the video/newsletter content-strategy proposal and the Nov 25 status report.
+- `cutoffs.md` and `send-schedule.md` — the weekly edition windows and test-send schedule (historical; the newsletter is now daily).
+- `scripts/build_*.py` and `scripts/shoot.py` — builders that produced the edition HTML and screenshots. They were moved here from the local working copy; `scripts/build_html.py` (the plan builder already in the repo) was left unchanged.

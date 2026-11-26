@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funded Tape: Short + newsletter content strategy (2 proposals)</title>
+<style>
+  :root { --blue:#3B5BFD; --ink:#1E1B4B; --pink:#FF5C8A; --yel:#FFD23F; --cream:#FFF8EC; --page:#FFE9C7; --muted:#5B5875; --green:#15803D; --red:#BE123C; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--page); color:#2B2840; font-family:'Trebuchet MS',Helvetica,Arial,sans-serif; line-height:1.6; }
+  a { color:var(--blue); }
+  .wrap { max-width:980px; margin:0 auto; padding:20px 16px 60px; }
+  .sheet { background:var(--cream); border-radius:18px; overflow:hidden; box-shadow:0 10px 30px rgba(30,27,75,.08); }
+  .mast { background:var(--blue); color:#fff; text-align:center; padding:40px 24px 30px; }
+  .mast .emo { font-size:44px; line-height:1; }
+  .mast h1 { font-family:'Arial Black',Arial,sans-serif; font-size:40px; line-height:1.1; margin:12px 0 8px; letter-spacing:-.5px; }
+  .mast p { margin:0; color:#E0E7FF; font-size:17px; }
+  .bar { background:var(--pink); color:#fff; font-weight:bold; letter-spacing:1px; text-align:center; font-size:13px; padding:9px 12px; }
+  .bar span { white-space:nowrap; }
+  section { padding:30px 34px 6px; }
+  h2 { color:var(--ink); font-size:26px; margin:0 0 14px; line-height:1.25; }
+  h3 { color:var(--ink); font-size:19px; margin:18px 0 8px; }
+  .card { background:#fff; border:2px solid var(--ink); border-radius:14px; padding:20px 22px; margin:0 0 18px; }
+  .chip { display:inline-block; border-radius:20px; padding:3px 12px; font-size:12px; font-weight:bold; letter-spacing:1px; color:var(--ink); }
+  .why { background:var(--yel); border-radius:10px; padding:12px 16px; color:var(--ink); margin:12px 0; }
+  .tldr { background:#fff; border:3px solid var(--blue); border-radius:16px; padding:22px 24px; }
+  .tldr h2 { margin-bottom:8px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .ev { background:#fff; border:2px solid var(--ink); border-radius:12px; padding:14px 16px; font-size:15px; }
+  .ev b.k { display:block; color:var(--blue); font-size:13px; letter-spacing:1px; margin-bottom:4px; }
+  .src { font-size:12.5px; color:var(--muted); }
+  ul.clean { padding-left:20px; margin:6px 0 10px; }
+  ul.clean li { margin:4px 0; }
+  .pc { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .pros { background:#DCFCE7; border-radius:10px; padding:12px 16px; }
+  .cons { background:#FFE4EC; border-radius:10px; padding:12px 16px; }
+  .pros b, .cons b { color:var(--ink); }
+  .kv { width:100%; border-collapse:collapse; font-size:15px; }
+  .kv th { text-align:left; vertical-align:top; width:30%; color:var(--ink); padding:9px 10px 9px 0; border-top:1px solid #EEE7DA; }
+  .kv td { padding:9px 0; border-top:1px solid #EEE7DA; vertical-align:top; }
+  .kv tr:first-child th, .kv tr:first-child td { border-top:none; }
+  .cmp { width:100%; border-collapse:separate; border-spacing:0; font-size:14.5px; background:#fff; border:2px solid var(--ink); border-radius:14px; overflow:hidden; }
+  .cmp th, .cmp td { padding:11px 12px; border-top:1px solid #EEE7DA; vertical-align:top; text-align:left; }
+  .cmp thead th { background:var(--ink); color:#fff; border-top:none; }
+  .cmp td.win { background:#F0F4FF; }
+  .tag { font-weight:bold; }
+  /* mockups */
+  .mock { display:grid; grid-template-columns:1.25fr 1fr; gap:16px; margin-top:8px; }
+  .email { background:#FFF8EC; border:2px solid var(--ink); border-radius:12px; overflow:hidden; font-size:12.5px; }
+  .email .m-top { background:var(--blue); color:#fff; text-align:center; font-family:'Arial Black',Arial; padding:8px; letter-spacing:.5px; }
+  .email .m-bar { background:var(--pink); height:6px; }
+  .email .m-body { padding:10px; }
+  .blk { background:#fff; border:1.5px solid var(--ink); border-radius:8px; padding:6px 9px; margin-bottom:6px; }
+  .blk.big { padding:9px; }
+  .blk .ln { height:6px; background:#E5E1F0; border-radius:3px; margin:4px 0; }
+  .blk .yl { height:9px; background:var(--yel); border-radius:3px; margin:5px 0 2px; }
+  .blk.qh { border-style:dashed; }
+  .blk.new { border-color:var(--blue); border-width:2.5px; }
+  .lbl { font-weight:bold; color:var(--ink); }
+  .newtag { background:var(--blue); color:#fff; border-radius:8px; padding:0 6px; font-size:10.5px; margin-left:4px; }
+  .phone { background:#F7F5EF; border:2px solid var(--ink); border-radius:22px; aspect-ratio:9/16; max-width:220px; margin:0 auto; position:relative; overflow:hidden; font-size:12px; }
+  .phone .p-top { background:#ECE9E1; height:26px; display:flex; align-items:center; gap:4px; padding:0 10px; }
+  .phone .p-top i { width:7px; height:7px; border-radius:50%; display:inline-block; }
+  .phone .p-mid { padding:12px; }
+  .phone .pill { display:inline-block; background:#fff; border:1.5px solid var(--ink); border-radius:12px; padding:1px 7px; margin:2px 2px; font-size:10.5px; font-weight:bold; color:var(--ink); }
+  .phone .cta { background:var(--blue); color:#fff; border-radius:10px; padding:9px; margin-top:10px; font-weight:bold; line-height:1.3; }
+  .phone .foot { position:absolute; bottom:0; left:0; right:0; background:var(--ink); color:#fff; text-align:center; padding:8px 6px 10px; font-size:11px; }
+  .phone .rv { position:absolute; bottom:44px; left:10px; right:10px; background:rgba(30,27,75,.9); color:#fff; border-radius:8px; padding:5px 8px; font-size:10px; }
+  .note { font-size:13px; color:var(--muted); }
+  .exrow { display:grid; grid-template-columns:1.6fr 1fr; gap:10px; padding:10px 0; border-top:1px solid #EEE7DA; font-size:14.5px; }
+  .exrow:first-child { border-top:none; }
+  .st { font-weight:bold; font-size:13px; }
+  .st.ok { color:var(--green); } .st.chk { color:#B45309; } .st.no { color:var(--red); }
+  footer { text-align:center; font-size:12.5px; color:var(--muted); padding:22px 20px 30px; }
+  @media (max-width:720px) {
+    section { padding:24px 18px 4px; }
+    .mast h1 { font-size:30px; }
+    .grid2, .grid3, .pc, .mock { grid-template-columns:1fr; }
+    .kv th, .kv td { display:block; width:100%; }
+    .kv th { padding-bottom:0; } .kv td { border-top:none; padding-top:2px; }
+    .cmp { font-size:13px; }
+    .cmp th, .cmp td { padding:9px 8px; }
+    .exrow { grid-template-columns:1fr; gap:2px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap"><div class="sheet">
+
+<div class="mast">
+  <div class="emo">&#127916;&#128232;</div>
+  <h1>Short + newsletter: how many stories?</h1>
+  <p>Two content proposals for Funded Tape, plus a recommendation</p>
+</div>
+<div class="bar"><span>PREPARED NOV 3, 2026</span> &nbsp;&middot;&nbsp; <span>FOR POMO651</span> &nbsp;&middot;&nbsp; <span>INTERNAL, NOT PUBLISHED</span></div>
+
+<section>
+  <div class="tldr">
+    <span class="chip" style="background:#DCFCE7">&#9989; RECOMMENDATION</span>
+    <h2 style="margin-top:10px">Go with Proposal B, with a cap: Top 5 + "More this week" (3 to 6 verified quick hits) + a small rule-change tracker.</h2>
+    <ul class="clean">
+      <li><b>It gives video viewers a reason to click.</b> If the newsletter only repeats the Short's 5 stories, "more depth" is a weak promise. "5 more stories + every rule change" is a concrete one.</li>
+      <li><b>Length is not the risk people think.</b> A 100,000-email study found no clear link between word count and click rate. The real cost is a slight rise in unsubscribes on longer emails, so keep quick hits to 1 to 2 lines and cap the count.</li>
+      <li><b>It's a proven roundup shape.</b> TLDR and Morning Brew both pair a few main stories with a fast "quick links" section.</li>
+      <li><b>Hold "Deals &amp; promo codes" for now.</b> Discount codes change daily and are usually tied to affiliate money, which is what this week's Prop Firm Match story was about. Add it later only with clear affiliate labels.</li>
+    </ul>
+    <div class="why"><b>&#128161; One thing to fix first:</b> links in a Short's description and comments <b>aren't clickable</b>. The Short's CTA should point to the <b>newsletter link on our YouTube channel page</b>, which is clickable. A per-Short "Related video" link is clickable too, but it can only point to our own YouTube videos.</div>
+  </div>
+</section>
+
+<section>
+  <h2>&#127919; The question</h2>
+  <p>Once there's a weekly Short, viewers already get the gist of the Top 5 in about 90 seconds. Should the newsletter carry more than 5 items, so the video can send people to it "for more"?</p>
+  <div class="grid3">
+    <div class="ev"><b class="k">SCHEDULE (FIXED)</b>Collection runs on a rolling 7-day window, with the news cutoff Sat 5 PM ET (3 PM Edmonton). The draft is ready Sat 8 PM ET (6 PM), you approve by 10 PM ET (8 PM), and it sends Sun 9 AM ET (7 AM).</div>
+    <div class="ev"><b class="k">RULE (FIXED)</b>Every claim is checked against a primary source and linked. If it can't be verified, it's dropped. This week it cut several unconfirmed claims and items.</div>
+    <div class="ev"><b class="k">TEAM</b>Feed (official sources), Pulse (community), Editor (writes), Reel (the Short), and KFC (reviews, brings to you). We're on Beehiiv's free plan, which has no A/B testing.</div>
+  </div>
+</section>
+
+<section>
+  <h2>&#128269; What the evidence says</h2>
+  <div class="grid2">
+    <div class="ev"><b class="k">YOUTUBE SHORTS LINKS (VERIFIED ON YOUTUBE HELP)</b>
+      <ul class="clean">
+        <li>"URLs placed in YouTube Shorts comments and Shorts descriptions are non-clickable." That applies to pinned comments too.</li>
+        <li>Clickable: <b>channel profile links</b> (up to 14) and the <b>Related video</b> link in the Shorts player.</li>
+        <li>Related video must be <b>your own</b> public or unlisted video, and needs advanced feature access.</li>
+        <li>Clickable links in <b>long-form</b> video descriptions also need advanced features.</li>
+      </ul>
+      <div class="src"><a href="https://support.google.com/youtube/answer/13748639?hl=en">YouTube Help: Sharing links</a> &middot; <a href="https://support.google.com/youtube/answer/14075157?hl=en">Add a related video to Shorts</a> &middot; <a href="https://support.google.com/youtube/answer/9890437">Feature access</a></div>
+    </div>
+    <div class="ev"><b class="k">EMAIL LENGTH VS ENGAGEMENT (MIXED)</b>
+      <ul class="clean">
+        <li>Buttondown sampled 100,000 sends and found "no pretty linear relationship" between word count and click rate.</li>
+        <li>Inntopia (1,200 hotel campaigns) found no clear click-rate link, but opt-outs rose from 0.18% (1 to 100 words) to 0.22% (400+ words).</li>
+        <li>One MarketingExperiments test found shorter copy got a 16.9% higher clickthrough. It was a single promotional email, so treat it as a weak signal.</li>
+      </ul>
+      <div class="src"><a href="https://buttondown.email/blog/email-length-click-rate">Buttondown</a> &middot; <a href="https://corp.inntopia.com/word-count-vs-email-performances/">Inntopia</a> &middot; <a href="https://marketingexperiments.com/email-marketing/copy-length-testing">MarketingExperiments</a></div>
+    </div>
+    <div class="ev"><b class="k">HOW BIG ROUNDUPS ARE BUILT</b>
+      <ul class="clean">
+        <li><b>TLDR</b> (per a 21-issue review): about 14 linked items in a fixed order, ending in "Quick Links" with five or six one-line items. A 1,340-word email "reads in five minutes."</li>
+        <li><b>Morning Brew</b>'s editor describes a greeting, market snapshot, the day's news, a "quick links roundup section," tips, and a puzzle.</li>
+      </ul>
+      <div class="src"><a href="https://hark.news/newsletters/tldr-review">Hark: TLDR review</a> &middot; <a href="https://www.morningbrew.com/stories/2025/07/06/the-neal-freyman-interview">Morning Brew: Neal Freyman interview</a></div>
+    </div>
+    <div class="ev"><b class="k">WHAT TO MEASURE</b>
+      <ul class="clean">
+        <li>Open rates are inflated by machine opens (Apple Mail Privacy Protection), so judge changes on <b>clicks, replies and unsubscribes</b>.</li>
+        <li>I found no public data on how often Shorts viewers click through to a newsletter. Expect a small share, and treat the size of this effect as a judgment call.</li>
+      </ul>
+      <div class="src"><a href="https://www.distinctful.com/blog/best-time-to-send-newsletter">Distinctful on open-rate noise</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>&#127359;&#65039; Proposal A: "Same Top 5, two formats"</h2>
+  <div class="card">
+    <span class="chip" style="background:#E0F2FE">SHORT = TEASER &middot; NEWSLETTER = DEPTH</span>
+    <table class="kv" style="margin-top:10px">
+      <tr><th>What subscribers get</th><td>The same 5 stories as the Short, with full write-ups: the numbers, the 💡 Why it matters box, and every source link. That's roughly this week's edition (about 900 words).</td></tr>
+      <tr><th>Reason to click from the video</th><td>"Full details, numbers and sources." It's honest, but viewers who just heard the 5 stories may feel they already got it.</td></tr>
+      <tr><th>Opens, reads, growth</th><td>The short email keeps read-through high and unsubscribes low (Inntopia's opt-out trend). For growth, though, the Short and the email overlap almost fully, so the video does less to convert viewers into subscribers. That last point is a judgment call.</td></tr>
+      <tr><th>Bot workload</th><td>Unchanged. Feed and Pulse shortlist, Editor writes 5 stories, Reel makes the Short from the same 5, and KFC reviews one set. This is the lowest load.</td></tr>
+      <tr><th>Fact-check risk</th><td>Lowest: only 5 items to check.</td></tr>
+      <tr><th>Fits Sat cutoff / Sun 9 AM ET</th><td>Yes, with room to spare. The 3-hour gap from cutoff to draft is plenty.</td></tr>
+    </table>
+    <div class="pc" style="margin-top:12px">
+      <div class="pros"><b>Pros</b><ul class="clean"><li>Simplest and fastest to run</li><li>One story list for both formats</li><li>Lowest error risk</li></ul></div>
+      <div class="cons"><b>Cons</b><ul class="clean"><li>Weak reason to click from the video</li><li>Verified items that miss the Top 5 are wasted</li><li>Hard to stand out from free YouTube recaps</li></ul></div>
+    </div>
+    <h3>Mockup</h3>
+    <div class="mock">
+      <div class="email">
+        <div class="m-top">FUNDED TAPE</div><div class="m-bar"></div>
+        <div class="m-body">
+          <div class="blk"><span class="lbl">Hey traders 👋</span> 2-line intro<div class="ln" style="width:80%"></div></div>
+          <div class="blk big"><span class="lbl">1. 🚨 Lead story</span><div class="ln"></div><div class="ln" style="width:85%"></div><div class="yl"></div><span class="note">🔗 2 to 4 sources</span></div>
+          <div class="blk big"><span class="lbl">2. 💸 Story</span><div class="ln"></div><div class="yl"></div></div>
+          <div class="blk big"><span class="lbl">3. 🎯 Story</span><div class="ln"></div><div class="yl"></div></div>
+          <div class="blk big"><span class="lbl">4. 🚀 Story</span><div class="ln"></div><div class="yl"></div></div>
+          <div class="blk big"><span class="lbl">5. 📝 Story</span><div class="ln"></div><div class="yl"></div></div>
+          <div class="blk"><span class="lbl">Sign-off</span> · not financial advice · footer</div>
+        </div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="p-top"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></div>
+          <div class="p-mid"><b style="color:#1E1B4B;font-size:15px">That's the week.</b><br>
+            <span class="pill">#1 PFM</span><span class="pill">#2 PipFarm</span><span class="pill">#3 Topstep</span><span class="pill">#4 GOAT</span><span class="pill">#5 Tradeify</span>
+            <div class="cta">Full details + sources in the Funded Tape newsletter. Link on our channel page.</div></div>
+          <div class="rv">▶ Related video: last week's Short</div>
+          <div class="foot">&gt; Funded Tape · Not financial advice</div>
+        </div>
+        <p class="note" style="text-align:center">Video end card (Proposal A)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>&#127345;&#65039; Proposal B: "Short = Top 5, newsletter = Top 5 + more"</h2>
+  <div class="card">
+    <span class="chip" style="background:#DCFCE7">SHORT = TOP 5 &middot; NEWSLETTER = TOP 5 + MORE</span>
+    <table class="kv" style="margin-top:10px">
+      <tr><th>What subscribers get</th><td>The same Top 5 with full write-ups, then <b>"More this week":</b> 3 to 6 quick hits of 1 to 2 lines, each with one primary-source link. Then a small <b>rule-change tracker</b> (firm, what changed, which accounts it applies to, link). Adds roughly 200 to 350 words.</td></tr>
+      <tr><th>Reason to click from the video</th><td>Concrete and new: "5 more stories + every rule change this week, in the newsletter." Viewers get something the video didn't give them.</td></tr>
+      <tr><th>Opens, reads, growth</th><td>Opens are driven by the subject line and sender, not by length, so expect little change. Clicks per reader should rise because there are more links to tap (Inntopia saw clicks per clicker climb with length). Unsubscribes may tick up slightly on a longer email, so keep the cap. Growth should improve from the stronger video CTA, but there's no public benchmark, so that's a judgment call to test.</td></tr>
+      <tr><th>Bot workload</th><td><b>Feed and Pulse:</b> they already see far more items than make the Top 5, so the change is tagging each with a primary link as they find it. <b>Editor:</b> about 30 to 45 extra minutes for the 1-line write-ups and the tracker (my estimate). <b>KFC:</b> a longer review. <b>Reel:</b> only the end card and pinned comment text change.</td></tr>
+      <tr><th>Fact-check risk</th><td>Higher: 8 to 11 items instead of 5. Handle it with the same rule (primary source or drop). Verify quick hits during the week as they come in, not on Saturday night. If too few clear the bar, the section shrinks; it never gets padded.</td></tr>
+      <tr><th>Fits Sat cutoff / Sun 9 AM ET</th><td>Yes, if quick hits are verified on a rolling basis Monday to Saturday. The Sat 5 PM ET cutoff, 8 PM ET draft and Sun 9 AM ET send don't change. Your 2-hour approval stays realistic because quick hits read in about a minute.</td></tr>
+    </table>
+    <div class="pc" style="margin-top:12px">
+      <div class="pros"><b>Pros</b><ul class="clean"><li>Clear reason to subscribe from the video</li><li>Uses verified items that miss the Top 5</li><li>The rule tracker is a useful weekly reference</li><li>Matches proven roundup formats</li></ul></div>
+      <div class="cons"><b>Cons</b><ul class="clean"><li>More to verify each week</li><li>Longer email: slight unsubscribe risk</li><li>Pressure to fill the section; the cap and the drop rule guard against padding</li></ul></div>
+    </div>
+    <h3>Mockup</h3>
+    <div class="mock">
+      <div class="email">
+        <div class="m-top">FUNDED TAPE</div><div class="m-bar"></div>
+        <div class="m-body">
+          <div class="blk"><span class="lbl">Hey traders 👋</span> 2-line intro + "5 stories, then 5 more"<div class="ln" style="width:80%"></div></div>
+          <div class="blk big"><span class="lbl">1. 🚨 Lead story</span><div class="ln"></div><div class="yl"></div></div>
+          <div class="blk big"><span class="lbl">2 to 5. Stories</span> (same as the Short)<div class="ln"></div><div class="yl"></div></div>
+          <div class="blk qh new"><span class="lbl">⚡ More this week</span><span class="newtag">NEW</span>
+            <div class="note">• Firm: one-line fact. 🔗 source<br>• Firm: one-line fact. 🔗 source<br>• … 3 to 6 items, verified</div></div>
+          <div class="blk qh new"><span class="lbl">📋 Rule-change tracker</span><span class="newtag">NEW</span>
+            <div class="note">Firm · what changed · applies to · 🔗</div></div>
+          <div class="blk" style="opacity:.6"><span class="lbl">🏷️ Deals &amp; codes</span> <i>(later, only with affiliate labels)</i></div>
+          <div class="blk"><span class="lbl">Sign-off</span> · not financial advice · footer</div>
+        </div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="p-top"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></div>
+          <div class="p-mid"><b style="color:#1E1B4B;font-size:15px">That's the Top 5.</b><br>
+            <span class="pill">#1 PFM</span><span class="pill">#2 PipFarm</span><span class="pill">#3 Topstep</span><span class="pill">#4 GOAT</span><span class="pill">#5 Tradeify</span>
+            <div class="cta">+5 more stories &amp; every rule change this week in the Funded Tape newsletter. Link on our channel page.</div></div>
+          <div class="rv">▶ Related video: our "How to subscribe" video</div>
+          <div class="foot">&gt; Funded Tape · Not financial advice</div>
+        </div>
+        <p class="note" style="text-align:center">Video end card (Proposal B)</p>
+      </div>
+    </div>
+    <p class="note">Spoken CTA (B): "That's the top five. Five more stories and every rule change are in the Funded Tape newsletter. The link's on our channel page." The pinned comment can repeat the newsletter address as plain text, since it won't be clickable.</p>
+  </div>
+</section>
+
+<section>
+  <h2>&#9878;&#65039; Side by side</h2>
+  <div style="overflow-x:auto">
+  <table class="cmp">
+    <thead><tr><th></th><th>A: Same Top 5</th><th>B: Top 5 + more (capped)</th></tr></thead>
+    <tr><th>Reason to click from video</th><td>Weak: "more detail"</td><td class="win">Strong: "5 more stories + rule changes"</td></tr>
+    <tr><th>Email length</th><td class="win">~900 words</td><td>~1,100 to 1,250 words (TLDR's 1,340 "reads in five minutes")</td></tr>
+    <tr><th>Opens</th><td>No expected difference</td><td>No expected difference</td></tr>
+    <tr><th>Clicks per reader</th><td>Baseline</td><td class="win">Likely higher (more links)</td></tr>
+    <tr><th>Unsubscribe risk</th><td class="win">Lowest</td><td>Slightly higher; keep the cap</td></tr>
+    <tr><th>Growth from YouTube</th><td>Lower (judgment)</td><td class="win">Higher (judgment, test it)</td></tr>
+    <tr><th>Bot workload</th><td class="win">Unchanged</td><td>Editor +30 to 45 min; Feed tags sources</td></tr>
+    <tr><th>Fact-check risk</th><td class="win">5 items</td><td>8 to 11 items, same drop rule</td></tr>
+    <tr><th>Sat cutoff / Sun 9 AM ET</th><td class="win">Easy</td><td>Fine with rolling checks</td></tr>
+    <tr><th>Uses verified non-Top-5 items</th><td>No</td><td class="win">Yes</td></tr>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>&#129514; This week as an example: what could fill "More this week"?</h2>
+  <p>This edition left out several items: sales, a few items that couldn't be confirmed, and older news. <b>These are examples only.</b> None goes in unless it clears the primary-source check before cutoff.</p>
+  <div class="card">
+    <div class="exrow"><div><b>Prop Firm Prestige</b> plans a comparison site with verified reviews, launching in stages from December (Finance Magnates, Nov 2).</div><div class="st chk">Needs a check on the firm's own site; could fit as a 1-liner</div></div>
+    <div class="exrow"><div><b>LucidDaily</b>: end-of-day drawdown now carries into funded (reported Nov 1 by Funded Program Finder).</div><div class="st chk">Needs Lucid's own page or post</div></div>
+    <div class="exrow"><div><b>Lucid</b>: real-time bank payouts for UK traders (reported Nov 1).</div><div class="st no">Dropped this week: not on Lucid's payout help page</div></div>
+    <div class="exrow"><div><b>Tradeify Forge 300K</b> reported as "now permanent."</div><div class="st no">Dropped: Tradeify's Forge page still says limited release</div></div>
+    <div class="exrow"><div><b>Big sales</b>: Apex 90% off evaluations extended to Nov 4, Phidias 80% off one-time accounts (deal sites, Nov 1 to 3).</div><div class="st chk">Would belong in a future Deals section with affiliate labels; dates expire fast</div></div>
+    <div class="exrow"><div><b>MyForexFunds</b> relaunch set for Nov 23.</div><div class="st no">Out of window (announced Oct 12); fits a later "coming up" line</div></div>
+  </div>
+  <p class="note">So this week, B would likely have carried only 1 to 2 quick hits. That's fine: the cap is a maximum, not a target.</p>
+</section>
+
+<section>
+  <h2>&#128202; How we'd check it worked (first 4 editions)</h2>
+  <ul class="clean">
+    <li>Track in Beehiiv each week: click rate, clicks on "More this week" links, unsubscribes, and replies.</li>
+    <li>Use a dedicated signup link for YouTube, such as a tagged URL or its own landing page, so YouTube signups can be told apart.</li>
+    <li>Decision rule: keep B if unsubscribes don't rise noticeably and the quick hits get clicks. Otherwise trim to 3 quick hits, or fall back to A.</li>
+    <li>Before Reel posts: get a newsletter link onto the channel profile (clickable) and check Related video eligibility, which needs advanced features.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>&#128218; Sources</h2>
+  <ul class="clean src" style="font-size:13.5px">
+    <li>YouTube Help, Sharing links with your audiences: <a href="https://support.google.com/youtube/answer/13748639?hl=en">support.google.com/youtube/answer/13748639</a></li>
+    <li>YouTube Help, Add a related video to your YouTube Shorts: <a href="https://support.google.com/youtube/answer/14075157?hl=en">support.google.com/youtube/answer/14075157</a></li>
+    <li>YouTube Help, Feature access for creators: <a href="https://support.google.com/youtube/answer/9890437">support.google.com/youtube/answer/9890437</a></li>
+    <li>Buttondown, Email length doesn't affect click rate: <a href="https://buttondown.email/blog/email-length-click-rate">buttondown.email/blog/email-length-click-rate</a></li>
+    <li>Inntopia, Word count vs email performance: <a href="https://corp.inntopia.com/word-count-vs-email-performances/">corp.inntopia.com/word-count-vs-email-performances</a></li>
+    <li>MarketingExperiments, Copy length test: <a href="https://marketingexperiments.com/email-marketing/copy-length-testing">marketingexperiments.com/email-marketing/copy-length-testing</a></li>
+    <li>Hark News, TLDR review (21 issues): <a href="https://hark.news/newsletters/tldr-review">hark.news/newsletters/tldr-review</a></li>
+    <li>Morning Brew, The Neal Freyman interview: <a href="https://www.morningbrew.com/stories/2025/07/06/the-neal-freyman-interview">morningbrew.com/stories/2025/07/06/the-neal-freyman-interview</a></li>
+    <li>Distinctful, Best time to send a newsletter (open-rate noise): <a href="https://www.distinctful.com/blog/best-time-to-send-newsletter">distinctful.com/blog/best-time-to-send-newsletter</a></li>
+  </ul>
+</section>
+
+<footer>Funded Tape · internal planning doc · prepared by Drew · Nov 3, 2026 · not financial advice</footer>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+{
+ "slug": "2026-10-27_11-03",
+ "date_range": "Oct 27 – Nov 3, 2026",
+ "voice": "en-US-AndrewNeural",
+ "rate": "+15%",
+ "hook": {
+  "title": "Funded Tape",
+  "subtitle": "Top 5 prop firm stories",
+  "range": "Oct 27 to Nov 3",
+  "say": "Funded Tape: the top 5 prop firm stories, October 27 to November 3. Number one: a comparison site loses about 21 partners. Number five: a way to buy back a blown funded account. Let's go."
+ },
+ "items": [
+  {
+   "tab": "Prop Firm Match",
+   "tag": "~21 partners out",
+   "dir": "down",
+   "title": "Prop Firm Match loses ~21 partners",
+   "summary": "Clicks on firm profiles and codes ran through its affiliate links.",
+   "bullets": [
+    "About 21 brands cut ties, 38 remain",
+    "Redirect switched off Oct 29",
+    "PFM: prices and codes unaffected"
+   ],
+   "mock": {
+    "kind": "stat",
+    "name": "Prop Firm Match",
+    "big": "~21",
+    "label": "partner brands cut ties",
+    "rows": [
+     [
+      "Partners left",
+      "38"
+     ],
+     [
+      "Redirect off",
+      "Oct 29"
+     ],
+     [
+      "PFM's estimate",
+      "low single-digit %"
+     ]
+    ]
+   },
+   "say": "Number one. Prop Firm Match lost about 21 partner firms after clicks on firm profiles and copy-code buttons were sent through its affiliate links. Apex, Tradeify and Lucid are among them. Prop Firm Match says the impact was a low single-digit share of its commissions, and that prices and codes weren't affected."
+  },
+  {
+   "tab": "PipFarm",
+   "tag": "$5K cap removed",
+   "dir": "up",
+   "title": "PipFarm scraps its $5,000 payout cap",
+   "summary": "New accounts get a payout cap that keeps rising with no maximum.",
+   "bullets": [
+    "No $5,000 limit per payout",
+    "3% start, +1% every payout, no max",
+    "Only accounts bought from Nov 1"
+   ],
+   "mock": {
+    "kind": "table",
+    "name": "PipFarm · payout caps",
+    "head": [
+     "",
+     "Before",
+     "Now"
+    ],
+    "rows": [
+     [
+      "First payout cap",
+      "3%",
+      "3%"
+     ],
+     [
+      "Maximum cap",
+      "6%",
+      "No max"
+     ],
+     [
+      "Limit per payout",
+      "$5,000",
+      "No limit"
+     ]
+    ]
+   },
+   "say": "Number two. PipFarm scrapped its $5,000 payout cap for accounts bought from November 1. The cap still starts at 3% and rises 1% with every payout, but now there's no maximum. Older accounts keep their old caps."
+  },
+  {
+   "tab": "Topstep",
+   "tag": "Live call-ups",
+   "dir": "down",
+   "title": "Topstep: heavy account-buyers go Live",
+   "summary": "Cycling through lots of accounts can trigger a move to Live.",
+   "bullets": [
+    "Reply to a trader on X, Oct 28",
+    "4 payouts in 3 weeks, then Live",
+    "Live stats added to TopstepX"
+   ],
+   "mock": {
+    "kind": "quote",
+    "name": "Topstep on X · Oct 28",
+    "quote": "It isn't a SIM lottery.",
+    "rest": "Repeatedly cycling through accounts will eventually mean proving your strategy in Live."
+   },
+   "say": "Number three. Topstep says traders who keep cycling through accounts will be moved to Live. One trader took four payouts in three weeks before his call-up. In Topstep's words: it isn't a SIM lottery. TopstepX also added Live performance stats."
+  },
+  {
+   "tab": "Goat Funded Futures",
+   "tag": "$39 50K",
+   "dir": "up",
+   "title": "GOAT Access: a $50K eval for $39",
+   "summary": "Goat Funded Futures' new one-phase 50K, activation only after you pass.",
+   "bullets": [
+    "5% target, $2,000 EOD trailing drawdown",
+    "No daily loss limit",
+    "No news trading, $1,500 payout cap"
+   ],
+   "mock": {
+    "kind": "price",
+    "name": "Goat Funded Futures · GOAT Access 50K",
+    "rows": [
+     [
+      "To start",
+      "$39"
+     ],
+     [
+      "Activation, only after you pass",
+      "$99"
+     ],
+     [
+      "Total to get funded",
+      "$138"
+     ]
+    ]
+   },
+   "say": "Number four. Goat Funded Futures launched GOAT Access, a 50K evaluation for $39, plus a $99 activation only after you pass. It has a 5% target and no daily loss limit. The catch: no news trading, and payouts are capped at $1,500."
+  },
+  {
+   "tab": "Tradeify",
+   "tag": "From $450",
+   "dir": "up",
+   "title": "Tradeify launches Funded Reset",
+   "summary": "Buy back a blown Select funded account, no new evaluation.",
+   "bullets": [
+    "Select 50K, 100K and 150K",
+    "30 days after the breach to buy",
+    "Not if that account ever paid out"
+   ],
+   "mock": {
+    "kind": "price",
+    "name": "Tradeify · Funded Reset, first use",
+    "rows": [
+     [
+      "50K",
+      "$450"
+     ],
+     [
+      "100K",
+      "$570"
+     ],
+     [
+      "150K",
+      "$815"
+     ]
+    ]
+   },
+   "say": "Number five. Tradeify's new Funded Reset lets you buy back a blown Select funded account without retaking the evaluation. You get 30 days after the breach, prices start at $450, and it's off-limits if that account ever paid out."
+  }
+ ],
+ "outro": {
+  "cta": "Subscribe to Funded Tape for the weekly Top 5",
+  "nfa": "Not financial advice",
+  "say": "That's the week. Subscribe to Funded Tape for the weekly top five. Not financial advice."
+ }
+}
