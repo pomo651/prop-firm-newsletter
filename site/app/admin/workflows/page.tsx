@@ -24,7 +24,7 @@ export default async function Workflows() {
       <Head title="Workflows" sub="How a day runs, who does what, and what to do when something breaks." />
 
       <div className="bz-card">
-        <div className="bz-hd"><h2>1 · The daily run</h2><span className="bz-small">Edition = 24h up to 6:00 AM ET · first live Fri Nov 27</span></div>
+        <div className="bz-hd"><h2>1 · The daily run</h2><span className="bz-small">Edition = 24h up to 6:00 AM ET · 7 days a week, holidays too · first live Thu Nov 26</span></div>
         <div className="ft-chain">
           {DAY.map((d) => (
             <div key={d.t}><small>{d.t} ET</small><b>{d.who}</b><span>{d.what}</span></div>
@@ -46,7 +46,6 @@ export default async function Workflows() {
         <details className="bz-help">
           <summary>Still open for pomo651 · <u>Show</u></summary>
           <ol>
-            <li>Skip weekends?</li>
             <li>Keep a weekly Beehiiv recap next to the daily edition?</li>
             <li>Test an evening edition (cutoff ~5 PM ET) once open and click data exist.</li>
           </ol>

@@ -115,6 +115,8 @@ The left sidebar has only these two pages for now. The admin (below) is separate
 
 **Auto-review + publish (from Nov 26, 2026, delegated by pomo651).** A pg_cron job calls `/api/jobs/auto-publish` daily at 7:45 AM ET (DST-safe). It runs `ft_review_edition`, publishes if every check passes, otherwise holds the draft, and emails pomo651 either way. Each run is logged in `funded_tape.publish_log` and shown on the draft page. The checks are listed in `site/BOT_API.md`.
 
+**Monitoring + alerts (from Nov 26, 2026).** `/admin/monitor` grades every step of every day: collect by 6:00, picks by 6:45, draft by 7:15, publish at 7:45, and (once FT-video starts posting) Short by 8:45 and its approval. Each step is green, amber (late / needs pomo651), red (missing / held), or grey (not due / off). pg_cron runs two checkpoints: **7:20 AM ET** emails pomo651 about any red collect / picks / draft step before the 7:45 publish, and **8:55 AM ET** emails about anything red, late or waiting on pomo651. Each problem is emailed once per day (`funded_tape.monitor_alerts`). If the DB can't be read, that's emailed too. The page and the emails both read `ft_monitor`, so they always agree.
+
 **Publishing by hand (owner only).** pomo651 opens `/daily?preview=<PREVIEW_KEY>`, opens the draft, enters the owner key, and clicks **Publish edition**. **Approve Short for upload** works the same way. Bots can't publish, can't change a published edition, and can't change an approved Short.
 
 **New data fields (Nov 26, 2026).** Items accept `category`, `source_published_at`, `evidence`, `evidence_url` and `notes`. Shorts are posted with `POST /api/bot/videos`. Details: `site/BOT_API.md` and `plan/DATA_FORMAT.md`. On the home page, picks now show their category tag.

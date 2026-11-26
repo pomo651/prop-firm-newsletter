@@ -7,6 +7,7 @@ import { useState } from "react";
 // 18px line icons, stroke = currentColor (bustem: .bz-ni svg)
 const I = {
   today: <path d="M3 12h4l3-8 4 16 3-8h4" />,
+  monitor: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7 15l3-3 3 2 4-5" /></>,
   items: <><path d="M4 6h16M4 12h16M4 18h10" /></>,
   editions: <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M8 8h8M8 12h8M8 16h5" /></>,
   sources: <><circle cx="12" cy="12" r="8" /><path d="M4 12h16M12 4a12 12 0 0 1 0 16M12 4a12 12 0 0 0 0 16" /></>,
@@ -18,7 +19,7 @@ const ico = (k: keyof typeof I) => (
 );
 
 const GROUPS: { label: string; links: { href: string; label: string; icon: keyof typeof I }[] }[] = [
-  { label: "Today", links: [{ href: "/admin", label: "Today", icon: "today" }] },
+  { label: "Today", links: [{ href: "/admin", label: "Today", icon: "today" }, { href: "/admin/monitor", label: "Monitor", icon: "monitor" }] },
   { label: "Content", links: [
     { href: "/admin/items", label: "Items & picks", icon: "items" },
     { href: "/admin/editions", label: "Editions & Shorts", icon: "editions" },
