@@ -7,26 +7,44 @@ Funded Tape is a daily newsletter for prop firm traders. Each issue is the thing
 - **Alpha:** a free daily issue of "the things you can't miss in the prop firm world today," published at https://prop-firm-newsletter.vercel.app/daily. Sent on [Beehiiv](https://www.beehiiv.com/)'s free plan.
 - **Beta:** the same daily issue, plus one YouTube video and Shorts.
 
-## Daily cadence (changed from weekly on Nov 25, 2026, owner's decision)
+## Daily workflow
 
-Every day the watchers collect, FT-PM picks, and FT-editor drafts that day's edition and posts it to the site as a draft. The owner approves it, and then it is published. Exact daily times are still being planned: FT-PM has proposed a 5 AM ET sweep, picks by 6, draft by 6:30, and publish around 7, but pomo651 has not decided yet. (The old weekly rhythm was: collect Mon–Thu, draft Fri, approve Sat, send Sun.)
+The newsletter and the Short are daily. Each edition covers the 24 hours up to 5 AM ET. Full write-up: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md).
+
+```mermaid
+flowchart TD
+  A[FT-sources and FT-community post items as new all day] --> B[Final sweep by 5 AM ET]
+  B --> C[FT-PM fact-checks and marks picks by 6 AM ET]
+  C --> D[FT-editor posts the edition as draft by 6:30 AM ET]
+  D --> E[pomo651 publishes around 7 AM ET / 6 AM Edmonton in winter]
+  E --> F[FT-video builds the daily Short, ready 7:15–8 AM ET]
+```
+
+1. All day, with a final sweep by **5 AM ET**: FT-sources and FT-community post every item as `new`.
+2. By **6 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 on a weekday, proposed). Picks show on the public home page immediately, so only mark one after the check.
+3. By **6:30 AM ET**: FT-editor posts the edition as status `draft`.
+4. Around **7 AM ET** (6 AM Edmonton in winter): pomo651 approves and publishes. Bots never publish.
+5. After that: FT-video builds the daily Short from the published edition. It is ready around **7:15–8 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
+
+This timetable is **proposed** until pomo651 confirms it. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
 
 ## Bot team
 
 Roles, handoffs, and site rules are in [`plan/TEAM.md`](plan/TEAM.md). In short:
 
-- **FT-PM** (formerly KFC) runs the project, fact-checks items, and marks picks.
-- **FT-sources** (formerly Feed) covers official firm sites and announcements.
-- **FT-community** (formerly Pulse) covers Reddit, X, and community sources.
+- **FT-PM** (formerly KFC) runs the project, owns the source list, fact-checks items, and marks picks.
+- **FT-sources** (formerly Feed) covers official firm sites, help centers, and announcements.
+- **FT-community** (formerly Pulse) covers X, Reddit, YouTube, Discord, and reviews.
 - **FT-editor** (formerly Editor) writes the daily draft and posts it as status `draft`.
-- **FT-video** (formerly Reel) makes Shorts (Beta).
-- **Drew** owns the repo, Beehiiv, and plan upkeep.
+- **FT-video** (formerly Reel) builds the daily Short from the published edition.
+- **Drew** owns the repo, infra, and docs.
+- **pomo651** owns website development and is the only one who publishes or uploads.
 
-The GitHub repo is the source of truth. Nothing sends until pomo651 approves and publishes it.
+The GitHub repo is the source of truth. Nothing sends or uploads until pomo651 approves it.
 
 ## Layout
 
-- `plan/` — static CEO plan and the team doc. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`. Team roles and handoffs: [`plan/TEAM.md`](plan/TEAM.md).
+- `plan/` — static CEO plan and team docs. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`. Daily workflow: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md). Roles and handoffs: [`plan/TEAM.md`](plan/TEAM.md).
 - `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent. FINAL drafts of weekly editions #1–#3 (never sent) are here too; see **Archive / newsletter files**.
 - `research/` — background notes. `research/platform-pricing-2026-11-03.txt` is the platform check that chose Beehiiv's free plan.
 - `scripts/` — helpers. `scripts/build_html.py` generates the plan HTML. Edition and screenshot builders live here too.
