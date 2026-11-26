@@ -24,6 +24,14 @@ Roles, handoffs, and site rules are in [`plan/TEAM.md`](plan/TEAM.md). In short:
 
 The GitHub repo is the source of truth. Nothing sends until pomo651 approves and publishes it.
 
+## Pull requests: FT-grok and the local FT-team
+
+Two teams work in this repo: **FT-grok** (the Grok bots above) and the **local FT-team** (pomo651 + Claude Code, on pomo651's machine).
+
+- **FT-grok PRs** start the PR body with: *"Done by FT-grok — needs local FT-team review."* FT-grok never merges its own PRs. The local FT-team reviews, merges, and syncs.
+- **Local FT-team PRs** start with: *"Done by local FT-team (pomo651 + Claude Code)."* FT-grok should read these before its next run.
+- Every change is explained in this README (and in `plan/TEAM.md` if roles or handoffs change).
+
 ## Layout
 
 - `plan/` — static CEO plan and the team doc. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`. Team roles and handoffs: [`plan/TEAM.md`](plan/TEAM.md).
