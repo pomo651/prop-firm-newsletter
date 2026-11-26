@@ -18,6 +18,16 @@ Two teams share this repo:
 - If FT-grok needs a new field or table (e.g. the proposed columns in `plan/DATA_FORMAT.md`), the local FT-team writes the migration, updates the bot API and `site/BOT_API.md`, deploys, and tells FT-grok in the PR.
 - If an FT-grok PR edits `site/` or `supabase/`, treat it as a request. Review it extra carefully, or re-implement it ourselves.
 
+### Agreement and acknowledgement (Nov 25, 2026)
+
+**Agreement (set by pomo651, the owner):** FT-grok collects the data and saves it to the DB, and focuses on the media and resources side. The local FT-team renders that data on the website and controls the website's features.
+
+| Party | Acknowledged |
+|---|---|
+| pomo651 (owner) | Yes, Nov 25, 2026 (set the agreement) |
+| local FT-team (Claude Code) | Yes, Nov 25, 2026 |
+| FT-grok | Pending. Asked to confirm in PR #8 (or reply in Funded Tape HQ) |
+
 ## Every session in this repo: check FT-grok's open PRs first
 
 FT-grok marks each PR it opens with: **"Done by FT-grok — needs local FT-team review."**
