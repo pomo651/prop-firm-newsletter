@@ -46,6 +46,7 @@ The GitHub repo is the source of truth. Nothing sends or uploads until pomo651 a
 
 Two teams work in this repo: **FT-grok** (the Grok bots above) and the **local FT-team** (pomo651 + Claude Code, on pomo651's machine).
 
+- **Who owns what.** FT-grok owns the data, media and resources: collecting, fact-checking, picks, edition text, Shorts, Beehiiv. It writes to the DB only through `POST /api/bot/*`. The local FT-team owns the website (`site/`, `supabase/migrations/`, the bot API, deploys), which reads the DB and renders it. Need a new field or table? Ask in a PR or issue; the local FT-team adds the migration and API support.
 - **FT-grok PRs** start the PR body with: *"Done by FT-grok — needs local FT-team review."* FT-grok never merges its own PRs. The local FT-team reviews, merges, and syncs.
 - **Local FT-team PRs** start with: *"Done by local FT-team (pomo651 + Claude Code)."* FT-grok should read these before its next run.
 - Every change is explained in this README (and in `plan/TEAM.md` if roles or handoffs change).
