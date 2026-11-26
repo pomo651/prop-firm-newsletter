@@ -44,10 +44,19 @@ FT-grok marks each PR it opens with: **"Done by FT-grok — needs local FT-team 
 - Start the PR body with: **"Done by local FT-team (pomo651 + Claude Code)."** If FT-grok should know about or act on the change, add: **"FT-grok: please read before your next run."**
 - Every change is explained in `README.md` (and `plan/TEAM.md` if it affects roles or handoffs), because FT-grok learns about changes from the repo.
 
+## Admin dashboard design (rule from pomo651, Nov 26, 2026)
+
+**Every admin dashboard feature follows the bustem admin design guide: `site/app/admin/THEME.md`.** That covers every new page, card, table, button or filter under `/admin`.
+- Read `THEME.md` first. Use `bustem.css` classes (`bz-*`) and the helpers in `components/admin/ui.tsx` (`Head`, `Pill`, `Cat`, `Bars`).
+- Never edit `bustem.css`. Funded Tape additions go in `admin.css` with the `ft-` prefix, using theme tokens only (no new hex values).
+- Colour means status only; max 2 pill buttons per row (one black primary on the right); tables over stacked cards.
+- Add each new page to `GROUPS` in `components/admin/AdminNav.tsx`; check it at 1440px and 390px.
+- The public site (`/`, `/daily`) keeps its own look in `app/globals.css`. Don't mix the two.
+
 ## Facts worth knowing
 
 - Live site: https://prop-firm-newsletter.vercel.app. **Merging to `main` auto-deploys** (Vercel is linked to GitHub, root directory `site`). PR branches get preview deploys. Don't run `vercel deploy` from `site/`, because the root setting would make it look for `site/site`.
-- Owner flow: `/daily?preview=<PREVIEW_KEY>` → open the draft → enter `OWNER_KEY` → Publish / Approve Short.
+- Owner flow: `/daily?preview=<PREVIEW_KEY>` → open the draft → enter `OWNER_KEY` → Publish / Approve Short. Admin dashboard: `/admin` (sign in with `PREVIEW_KEY`). It reads `ft_admin_snapshot`, which was applied Nov 26, 2026.
 - DB: blackout-clock Supabase (`fqgryxjuecjgelcjdvmq`), schema `funded_tape`. Apply SQL from `~/@Pomo651/blackout-clock` with `supabase db query --linked -f <file>`.
 - Secrets (`BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`, service key) live in `site/.env.local` and Vercel. Never commit them.
 - Only pomo651 approves or publishes, but pomo651 **delegated the daily edition to our auto-review** (Nov 26, 2026). pg_cron job `funded-tape-auto-publish` (`45 11,12 * * *` UTC) calls `/api/jobs/auto-publish`, which acts only in the 7 AM New York hour. Result emails go to `NOTIFY_EMAIL` via Resend (send-only key borrowed from claude-wall; the onboarding sender can only deliver to legogao651@gmail.com). Run it by hand: `POST /api/jobs/auto-publish?force=1&date=YYYY-MM-DD` with `x-job-secret`. Shorts are NOT auto-approved.
