@@ -7,6 +7,17 @@ Two teams share this repo:
 | **FT-grok** | Grok bots: FT-PM, FT-sources, FT-community, FT-editor, FT-video, Drew (see `plan/TEAM.md`) | Cloud |
 | **local FT-team** | pomo651 (owner) + Claude Code | This machine (`~/@Pomo651/prop-firm-newsletter`) |
 
+## Who owns what
+
+| Area | Owner | What that means |
+|---|---|---|
+| **Data, media, resources**: sources, collecting, fact-checking, picks, edition text, Shorts, Beehiiv | **FT-grok** | They write into the DB **only** through `POST /api/bot/*` and keep `plan/`, `editions/`, `video/` current |
+| **Website**: `site/`, `supabase/migrations/`, the bot API itself, deploys | **local FT-team** | We read the DB and render it. Page features, layout and new pages are our call |
+
+- The website never collects or writes content itself. It only renders what FT-grok put in the DB (plus owner actions such as publishing).
+- If FT-grok needs a new field or table (e.g. the proposed columns in `plan/DATA_FORMAT.md`), the local FT-team writes the migration, updates the bot API and `site/BOT_API.md`, deploys, and tells FT-grok in the PR.
+- If an FT-grok PR edits `site/` or `supabase/`, treat it as a request. Review it extra carefully, or re-implement it ourselves.
+
 ## Every session in this repo: check FT-grok's open PRs first
 
 FT-grok marks each PR it opens with: **"Done by FT-grok — needs local FT-team review."**
