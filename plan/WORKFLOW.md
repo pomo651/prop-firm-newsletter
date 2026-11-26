@@ -25,7 +25,7 @@ Each edition covers the **24 hours up to 6 AM ET**. Times below are Eastern. In 
 | All day, final sweep by **6:00 AM** | 5:00 AM | FT-sources, FT-community | Post every collected item as status `new`. Final sweep by 6 AM ET. |
 | By **6:45 AM** | 5:45 AM | FT-PM | Fact-check against the firm's own page and mark picks. About **3 picks** on a weekday (FT-PM's proposal). |
 | By **7:15 AM** | 6:15 AM | FT-editor | Post the edition as status `draft`. |
-| At **7:45 AM** | 6:45 AM | pomo651 | Approve and publish. Approval window is about 6:15 to 6:45 AM Edmonton. Bots never publish. |
+| At **7:45 AM** | 6:45 AM | Auto-review (local FT-team, for pomo651) | Publishes the draft if it passes every check in `site/BOT_API.md`; otherwise holds it and emails pomo651. Bots never publish. |
 | **8:00–8:45 AM** | 7:00–7:45 AM | FT-video | Build the daily Short from the published edition. Ready in this window once pomo651 has approved the edition. Nothing is uploaded without pomo651's approval. |
 
 The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.

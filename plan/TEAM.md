@@ -1,6 +1,6 @@
 # Funded Tape team
 
-The GitHub repo [pomo651/prop-firm-newsletter](https://github.com/pomo651/prop-firm-newsletter) is the source of truth. Keep working copies in sync with `main`. Nothing is published, sent, or uploaded until pomo651 approves it.
+The GitHub repo [pomo651/prop-firm-newsletter](https://github.com/pomo651/prop-firm-newsletter) is the source of truth. Keep working copies in sync with `main`. Nothing is published, sent, or uploaded until pomo651 approves it. Since Nov 26, 2026, pomo651 has delegated the daily edition's approval to the local FT-team's 7:45 AM ET auto-review (checks in `site/BOT_API.md`).
 
 Daily timetable, editorial rules, and approval steps: [`WORKFLOW.md`](WORKFLOW.md). Item format: [`DATA_FORMAT.md`](DATA_FORMAT.md).
 
@@ -30,7 +30,7 @@ FT-community┘                                                      │
                                                    and posts status: draft
                                                                    │
                                                                    ▼
-                                              pomo651 approves and publishes
+                                         auto-review publishes (or holds for pomo651)
                                                                    │
                                                                    ▼
                                               FT-video builds the daily Short
@@ -53,13 +53,13 @@ These are the rules from the live site (PR #2):
 1. Watchers (**FT-sources**, **FT-community**) post every collected item with status `new`.
 2. **FT-PM** marks an item `picked` only after it is fact-checked. Picks show on the public home page immediately.
 3. **FT-editor** posts each edition as status `draft`. Bots never publish.
-4. **pomo651** alone approves and publishes.
+4. Only **pomo651** approves and publishes. For the daily edition, the 7:45 AM ET auto-review does it on pomo651's behalf when every check passes.
 
 ## Daily schedule
 
 The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 6 AM ET.
 
-pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, pomo651 publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks per weekday is also a proposal. The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
+pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, the auto-review publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks per weekday is also a proposal. The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
 
 Open questions for pomo651: whether to skip weekends, and whether a weekly Beehiiv recap continues alongside the daily edition.
 

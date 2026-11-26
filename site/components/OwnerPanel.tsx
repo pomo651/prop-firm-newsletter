@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { OwnerAction, Video } from "@/lib/types";
+import type { Edition, OwnerAction, Video } from "@/lib/types";
 
 const STORE = "ft-owner-key";
 
@@ -15,7 +15,7 @@ function readKey() {
 }
 
 // Shown on an edition page in preview mode. The owner key stays in this browser only.
-export function OwnerPanel({ date, status, video }: { date: string; status: "draft" | "published"; video: Video | null }) {
+export function OwnerPanel({ date, status, video, review }: { date: string; status: "draft" | "published"; video: Video | null; review?: Edition["review"] }) {
   const router = useRouter();
   const [key, setKey] = useState("");
   // load after mount so server and client HTML match
@@ -53,6 +53,13 @@ export function OwnerPanel({ date, status, video }: { date: string; status: "dra
   return (
     <div className="owner">
       <div className="owner-head">Owner controls</div>
+      {review && (
+        <div className={`review review-${review.result}`}>
+          Auto-review {new Date(review.ran_at).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" })} ET:{" "}
+          <b>{review.result}</b>
+          {review.reasons.length > 0 && <ul>{review.reasons.map((r) => <li key={r}>{r}</li>)}</ul>}
+        </div>
+      )}
       <label>
         Owner key{" "}
         <input type="password" value={key} onChange={(e) => setKey(e.target.value)} autoComplete="off" />
