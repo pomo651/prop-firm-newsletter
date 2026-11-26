@@ -9,7 +9,7 @@ const TONE: Record<string, Tone> = {
   // editions / reviews / shorts
   published: "g", draft: "o", held: "r", skipped: "", approved: "g", uploaded: "g",
   // pipeline steps
-  done: "g", wait: "", late: "o", fail: "r",
+  done: "g", wait: "", late: "o", fail: "r", off: "",
 };
 const WORD: Record<string, string> = { done: "Done", wait: "Not due", late: "Late", fail: "Missing" };
 

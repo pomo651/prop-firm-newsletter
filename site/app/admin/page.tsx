@@ -118,7 +118,7 @@ export default async function Today() {
             <tbody>
               <tr><td><b>Subscribers + new per day</b></td><td className="bz-small">Beehiiv</td><td className="bz-small">Is the daily cadence growing the list?</td><td><Pill v="none" label="Not connected" /></td></tr>
               <tr><td><b>Open rate · click rate</b></td><td className="bz-small">Beehiiv</td><td className="bz-small">Morning vs 5 PM ET edition test</td><td><Pill v="none" label="Not connected" /></td></tr>
-              <tr><td><b>Unsubscribes per edition</b></td><td className="bz-small">Beehiiv</td><td className="bz-small">Daily may be too often; weekend skip?</td><td><Pill v="none" label="Not connected" /></td></tr>
+              <tr><td><b>Unsubscribes per edition</b></td><td className="bz-small">Beehiiv</td><td className="bz-small">Is a 7-day daily edition too often?</td><td><Pill v="none" label="Not connected" /></td></tr>
               <tr><td><b>Short views · watch time</b></td><td className="bz-small">YouTube Studio</td><td className="bz-small">Beta: is the Short worth making daily?</td><td><Pill v="none" label="Not connected" /></td></tr>
               <tr><td><b>/daily page views</b></td><td className="bz-small">Vercel Analytics</td><td className="bz-small">Web readers vs email readers</td><td><Pill v="none" label="Not connected" /></td></tr>
             </tbody>
