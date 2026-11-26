@@ -9,24 +9,28 @@ Funded Tape is a daily newsletter for prop firm traders. Each issue is the thing
 
 ## Daily workflow
 
-The newsletter and the Short are daily. Each edition covers the 24 hours up to 6 AM ET. Full write-up: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md).
+The newsletter and the Short are daily, **7 days a week, including weekends and holidays**. Each edition covers the previous 24 hours up to the 6:00 AM ET cutoff. Full write-up: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md).
 
 ```mermaid
 flowchart TD
-  A[FT-sources and FT-community post items as new all day] --> B[Final sweep by 6 AM ET]
-  B --> C[FT-PM fact-checks and marks picks by 6:45 AM ET]
-  C --> D[FT-editor posts the edition as draft by 7:15 AM ET]
+  A[FT-sources and FT-community sweep at about 5:15 AM ET and post items as new] --> B[Cutoff 6:00 AM ET]
+  B --> C[FT-PM fact-checks and marks about 3 picks, 6:05 start, done by 6:45 AM ET]
+  C --> D[FT-editor posts the edition as draft at 6:50, due by 7:15 AM ET]
   D --> E[Auto-review at 7:45 AM ET publishes it, or holds it for pomo651]
-  E --> F[FT-video builds the daily Short, ready 8:00–8:45 AM ET]
+  E --> F[FT-video builds the daily Short at 8:00 AM ET]
 ```
 
-1. All day, with a final sweep by **6 AM ET**: FT-sources and FT-community post every item as `new`.
-2. By **6:45 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 a day, fewer on thin days, proposed). Picks show on the public home page immediately, so only mark one after the check.
-3. By **7:15 AM ET**: FT-editor posts the edition as status `draft`.
-4. At **7:45 AM ET** (6:45 AM Edmonton in winter): the local FT-team's **auto-review** publishes the draft on pomo651's behalf if it passes every check (list in `site/BOT_API.md`). Otherwise it holds the draft and emails pomo651. Bots never publish.
-5. After that: FT-video builds the daily Short from the published edition. It is ready around **8:00–8:45 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
+All times ET, with Edmonton time one hour earlier in brackets:
 
-pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). The edition runs 7 days a week, weekends and holidays included (pomo651, Nov 25, 2026). The first live edition is Thursday Nov 26, 2026, with no dry run. An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Weekends and holidays are not skipped. Still open: whether a weekly Beehiiv recap continues. How the FT-grok side runs by itself: [plan/FT-GROK-AUTOPILOT.md](plan/FT-GROK-AUTOPILOT.md).
+1. About **5:15 AM** (4:15): FT-sources and FT-community sweep and post every item as `new`. The cutoff is 6:00 AM ET and the window is the previous 24 hours.
+2. From **6:05 AM** (5:05), done by **6:45 AM** (5:45): FT-PM fact-checks against the firm's own page and marks about 3 items `picked`. Picks show on the public home page immediately, so only mark one after the check.
+3. **6:50 AM** (5:50), due by **7:15 AM** (6:15): FT-editor posts the edition as status `draft`.
+4. **7:45 AM** (6:45): the local FT-team's **auto-review** publishes the draft on pomo651's behalf if it passes every check (list in `site/BOT_API.md`). Otherwise it holds the draft and emails pomo651. Bots never publish.
+5. **8:00 AM** (7:00): FT-video builds the daily Short from the published edition. For now pomo651 approves and uploads it by hand.
+
+This runs every day, including weekends and holidays, because big news can break on a holiday (pomo651, Nov 25, 2026). Thursday Nov 26, 2026 is the first live edition. An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Still open: whether a weekly Beehiiv recap continues (week 1 is site-only).
+
+What the database should see each day, and how the local team can tell a step is missing: [`plan/WORKFLOW.md`](plan/WORKFLOW.md#what-the-database-should-expect-each-day). Each bot holds the `BOT_TOKEN` privately; it never goes in the repo or a group chat.
 
 ## Bot team
 

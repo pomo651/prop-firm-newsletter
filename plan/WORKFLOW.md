@@ -18,17 +18,17 @@ Item format and how bots write to the database: [`DATA_FORMAT.md`](DATA_FORMAT.m
 
 ## Daily schedule (every day, 7 days a week)
 
-Each edition covers the **24 hours up to the 6:00 AM ET cutoff**: the window is the previous 24 hours. The schedule is the same on weekends and holidays. Times below are Eastern (ET), with Edmonton time one hour earlier in brackets (America/Edmonton, MST / UTC-6 in winter; ET is UTC-5).
+Each edition covers the **24 hours up to the 6:00 AM ET cutoff**: the window is the previous 24 hours. The schedule is the same on weekends and holidays. Times below are Eastern (ET), with Edmonton time one hour earlier in brackets.
 
 | Time ET (Edmonton) | Who | What |
 |---|---|---|
 | About **5:15 AM** (4:15) | FT-sources, FT-community | Sweep their sources and post every collected item as status `new` (`POST /api/bot/items`). Cutoff is **6:00 AM ET**; the window is the previous 24 hours. |
-| **6:05 AM** (5:05) | FT-PM | Fact-check against the firm's own page and mark about **3 items** `picked`. |
+| From **6:05 AM** (5:05), done by **6:45 AM** (5:45) | FT-PM | Fact-check against the firm's own page and mark about **3 items** `picked`. |
 | **6:50 AM** (5:50), due by **7:15 AM** (6:15) | FT-editor | Post the edition for today's New York date as status `draft` (`POST /api/bot/editions`). |
 | **7:45 AM** (6:45) | Auto-review (local FT-team, for pomo651) | Publishes the draft if it passes every check in `site/BOT_API.md`; otherwise holds it and emails pomo651. Bots never publish. |
 | **8:00 AM** (7:00) | FT-video | Build the daily Short from the published edition. For now pomo651 approves and uploads it by hand. |
 
-Edmonton times are for winter; they follow the clock change in spring (ET is always 2 hours ahead of Edmonton in the 6:00 AM sense only when both are on the same rule, so check the local hour when daylight saving starts).
+The ET times are the schedule; the bracketed Edmonton times are for pomo651's convenience.
 
 Still open for pomo651: does a weekly Beehiiv recap continue alongside the daily edition? (Week 1 is site-only, no daily Beehiiv send.)
 
@@ -50,7 +50,7 @@ All times are ET. The day's New York date is the `edition_date`.
 | By (ET) | Who | Table and endpoint | What should be there |
 |---|---|---|---|
 | From about **5:15 AM** | FT-sources, FT-community | `funded_tape.items` via `POST /api/bot/items` | New rows with `status = 'new'` and `collected_by` set to the bot name (`FT-sources` or `FT-community`). Required fields `url`, `title`, `source_name`; usually also `source_url`, `firm`, `category`, `source_published_at`, `evidence`, `evidence_url`, `notes`. `collected_at` is the collection time. Items are collected up to the 6:00 AM ET cutoff, covering the previous 24 hours. |
-| By **6:05 AM** | FT-PM | `funded_tape.items` via `POST /api/bot/items` | About **3** of those items moved to `status = 'picked'` (same `url` re-sent; `picked_at` is set by the database the first time). Items reviewed and dropped become `rejected`. A re-send replaces `title` and `status`; omitted optional fields keep their old values. |
+| By **6:45 AM** (starts 6:05) | FT-PM | `funded_tape.items` via `POST /api/bot/items` | About **3** of those items moved to `status = 'picked'` (same `url` re-sent; `picked_at` is set by the database the first time). Items reviewed and dropped become `rejected`. A re-send replaces `title` and `status`; omitted optional fields keep their old values. |
 | By **7:15 AM** (FT-editor starts at 6:50) | FT-editor | `funded_tape.editions` via `POST /api/bot/editions` | **Exactly one** row for that New York date (`edition_date` is unique, so a re-send updates it) with `status = 'draft'`, a `subject`, and `sections` as a JSON array of `{headline, body, why, sources}`. Every section has a headline, body, why-it-matters, and `sources` that include the exact `url` of at least one `picked` item, plus its source link. No placeholder text. |
 | **7:45 AM** | Local FT-team (auto-review) | `funded_tape.editions`, `funded_tape.publish_log` | The draft becomes `published` (with `published_at`) if it passes the checks, or stays `draft` and is held. Either way one `publish_log` row is written (`result` is `published`, `held`, or `skipped`; `reasons` lists the problems). |
 | After publish (8:00 AM start) | FT-video | `funded_tape.videos` via `POST /api/bot/videos` | At most one `draft` Short per `edition_date` (the edition must exist first). It is outside the 7:45 check. pomo651 approves it (`approved`) and uploads it (`uploaded`) by hand for now. FT-video posts here only after pomo651 OKs it and chooses where the video file lives. |
@@ -70,7 +70,7 @@ Use the admin page, or query the tables. Example checks for a given New York dat
 | FT-video did not run | No `videos` row for `D` by about 8:45 AM. | The Short is late. It does not affect the edition. |
 | The auto-review did not run | No `publish_log` row for `D` after 7:45 AM. | Local-side problem (cron or job), not a Grok-side one. |
 
-Example query for a quick daily health read (replace `D`):
+Example query for a quick daily health read (replace `D` with the date, `YYYY-MM-DD`):
 
 ```sql
 select
@@ -110,5 +110,5 @@ Please make sure the **7:45 AM ET auto-publish job and its emails run all 7 days
 1. **FT-editor** writes the edition (`editions/YYYY-MM-DD.md`, plus the Beehiiv/HTML package as needed) and posts it to the site as status `draft` (`POST /api/bot/editions`). Drafts are not public.
 2. At 7:45 AM ET the **auto-review** (local FT-team, on pomo651's behalf) publishes the draft on the site if it passes every check in `site/BOT_API.md`; otherwise it holds the draft and emails pomo651. Sending on Beehiiv (if that day's send is in use) is still done by hand. Until then, the edition stays a draft and is not public and not sent.
 3. **Bots never set an edition to `published`.**
-4. After the edition is published, **FT-video** builds the daily Short from that approved, published edition. The Short is ready around 8:00–8:45 AM ET, once pomo651 has approved the edition.
-5. **Nothing is uploaded** (YouTube or elsewhere) without pomo651's approval.
+4. After the edition is published, **FT-video** starts building the daily Short at 8:00 AM ET from that published edition.
+5. **Nothing is uploaded** (YouTube or elsewhere) without pomo651's approval. For now pomo651 approves and uploads the Short by hand.

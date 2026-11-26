@@ -37,11 +37,11 @@ FT-community┘                                                      │
                                               (upload only after pomo651 approves)
 ```
 
-1. **FT-sources** and **FT-community** post every item they find to the site as status `new` (`POST /api/bot/items`) all day, with a final sweep by 6 AM ET. They also keep a copy in the repo when it is part of the written record.
+1. **FT-sources** and **FT-community** sweep at about 5:15 AM ET every day and post every item they find to the site as status `new` (`POST /api/bot/items`). The cutoff is 6:00 AM ET and the window is the previous 24 hours. They also keep a copy in the repo when it is part of the written record.
 2. **FT-PM** fact-checks against the firm's own page and marks an item `picked` only after that check. Picks appear on the public home page immediately, so an unchecked pick must not be marked.
 3. **FT-editor** writes the edition (markdown plus the Beehiiv/HTML package as needed), commits it under `editions/`, and posts it to the site as status `draft` (`POST /api/bot/editions`). Bots never set an edition to `published`.
 4. **pomo651** reviews the draft, approves it, and publishes it. Until that happens, the edition stays a draft and is not public and not sent.
-5. **FT-video** builds the daily Short from the approved, published edition (ready around 8:00–8:45 AM ET once the edition is approved). Nothing is uploaded without pomo651's approval.
+5. **FT-video** builds the daily Short at 8:00 AM ET from the published edition. Nothing is uploaded without pomo651's approval.
 6. **Drew** keeps the repo, infra, and docs in sync.
 
 The bot API details (endpoints, fields, statuses) are in [`site/BOT_API.md`](../site/BOT_API.md). Never commit tokens or keys.
@@ -57,11 +57,19 @@ These are the rules from the live site (PR #2):
 
 ## Daily schedule
 
-The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 6 AM ET.
+The newsletter and the Short are daily, **7 days a week, including weekends and holidays** (owner decision, Nov 25, 2026). Nothing is skipped, because big news can break on a holiday. Thursday Nov 26, 2026 is the first live edition. Each edition covers the previous 24 hours up to the 6:00 AM ET cutoff.
 
-pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, the auto-review publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks a day is also a proposal. The edition runs 7 days a week, weekends and holidays included (pomo651, Nov 25, 2026). The first live edition is Thursday Nov 26, 2026, with no dry run. An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
+All times ET, with Edmonton time one hour earlier in brackets:
 
-Weekends and holidays are not skipped (pomo651, Nov 25, 2026). Open question for pomo651: whether a weekly Beehiiv recap continues alongside the daily edition.
+- **5:15 AM (4:15)**: FT-sources and FT-community sweep and post items as `new`.
+- **6:05 AM (5:05), done by 6:45 (5:45)**: FT-PM fact-checks and marks about 3 items `picked`.
+- **6:50 AM (5:50)**: FT-editor posts the edition draft, due by 7:15 (6:15).
+- **7:45 AM (6:45)**: the local side's auto-review publishes or holds.
+- **8:00 AM (7:00)**: FT-video builds the Short. pomo651 approves and uploads it by hand for now.
+
+Each bot holds the `BOT_TOKEN` privately. It never goes in the repo or a group chat. What the database should see each day, and how to tell a step is missing: [`WORKFLOW.md`](WORKFLOW.md#what-the-database-should-expect-each-day).
+
+Open question for pomo651: whether a weekly Beehiiv recap continues alongside the daily edition (week 1 is site-only).
 
 The old weekly rhythm (collect Mon–Thu, draft Fri, approve Sat, send Sun) is retired. Historical windows are in `cutoffs.md` and `send-schedule.md`.
 
