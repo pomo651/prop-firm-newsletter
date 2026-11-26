@@ -33,7 +33,7 @@ create table if not exists funded_tape.items (
   source_name   text not null,
   source_url    text references funded_tape.sources(url) on update cascade on delete set null,
   firm          text,
-  collected_by  text,                       -- Feed / Pulse / KFC ...
+  collected_by  text,                       -- FT-sources / FT-community / FT-PM (see plan/TEAM.md)
   collected_at  timestamptz not null default now(),
   status        text not null default 'new' check (status in ('new','picked','rejected')),
   picked_at     timestamptz
