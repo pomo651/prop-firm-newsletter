@@ -1,7 +1,7 @@
 # Funded Tape site — bot API
 
 Live site: https://prop-firm-newsletter.vercel.app
-Every write goes through three endpoints. All are `POST`, take JSON, and need the header:
+Every write goes through four endpoints. All are `POST`, take JSON, and need the header:
 
 ```
 Authorization: Bearer <BOT_TOKEN>
@@ -37,7 +37,7 @@ Send `"active": false` to stop counting a source. Home page counter = active sou
 }]
 ```
 
-- Required: `url`, `title`, `source_name`. Optional: `summary`, `source_url` (must match a source already sent), `firm`, `collected_by` (FT-sources / FT-community / FT-PM), `collected_at` (ISO time, default now).
+- Required: `url`, `title`, `source_name`. Optional: `summary`, `category` (`rule_change` | `launch` | `payout` | `pricing` | `promo` | `allegation`), `source_published_at` (ISO time the firm/source posted it), `evidence` (`official` | `firm_x_post` | `community`), `evidence_url`, `notes`, `source_url` (must match a source already sent), `firm`, `collected_by` (FT-sources / FT-community / FT-PM), `collected_at` (ISO time, default now).
 - `status`: `new` when collected, `picked` when FT-PM picks it (after fact-checking), `rejected` when dropped.
 - **Picks show on the public home page right away** (Latest picks + the live animation). Only mark `picked` once the item is fact-checked.
 
@@ -59,9 +59,21 @@ Send `"active": false` to stop counting a source. Home page counter = active sou
 }
 ```
 
-- `status` defaults to `draft`. Drafts are **not public**. The owner reviews them at `/daily?preview=<PREVIEW_KEY>`.
-- Only the owner flips an edition to `"published"`. Bots always send `draft`.
+- Always saved as `draft`; any `status` you send is ignored. Drafts are **not public**. The owner reviews them at `/daily?preview=<PREVIEW_KEY>` and publishes with the Publish button.
+- Once an edition is published it is **locked**. A bot update returns `400 … already published`. Ask pomo651 to unpublish it if a fix is needed.
 - The page adds its own "Not financial advice" footer, so leave it out of `outro`.
+
+## 4. Videos: the daily Short
+
+`POST /api/bot/videos` with a JSON **object**:
+
+```json
+{ "edition_date": "2026-11-27", "video_url": "https://…/short.mp4", "title": "Today's prop firm news in 60s" }
+```
+
+- One Short per edition. The edition must already exist (post it first).
+- Always saved as `draft`. pomo651 approves it with the **Approve Short for upload** button. After approval the Short shows on the edition page and is **locked** for bots. Upload only after approval.
+- `video_url` can point at the rendered file before upload; pomo651 can replace it with the public URL when marking it uploaded.
 
 ## Responses
 

@@ -87,9 +87,13 @@ The left sidebar has only these two pages for now.
 
 **Seeded data.** 71 sources from the plan's source map, plus the 13 source links and 5 picks from the demo edition. The demo edition itself (dated 2026-11-01) is stored as a **draft**, because it was never approved.
 
-**Env vars** (Vercel production + preview, and `site/.env.local` locally; names in `site/.env.example`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOT_TOKEN`, `PREVIEW_KEY`.
+**Env vars** (Vercel production + preview, and `site/.env.local` locally; names in `site/.env.example`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`.
 
-**Run locally:** `cd site && npm install && npm run dev`. **Deploy:** `cd site && vercel deploy --prod`.
+**Run locally:** `cd site && npm install && npm run dev`. **Deploy:** merging to `main` deploys to production automatically. Vercel's root directory is `site`; every PR gets a preview deploy.
+
+**Publishing (owner only, added Nov 26, 2026).** pomo651 opens `/daily?preview=<PREVIEW_KEY>`, opens the draft, enters the owner key, and clicks **Publish edition**. **Approve Short for upload** works the same way. Bots can't publish, can't change a published edition, and can't change an approved Short.
+
+**New data fields (Nov 26, 2026).** Items accept `category`, `source_published_at`, `evidence`, `evidence_url` and `notes`. Shorts are posted with `POST /api/bot/videos`. Details: `site/BOT_API.md` and `plan/DATA_FORMAT.md`. On the home page, picks now show their category tag.
 
 ## Archive / newsletter files
 

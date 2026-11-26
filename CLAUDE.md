@@ -46,7 +46,8 @@ FT-grok marks each PR it opens with: **"Done by FT-grok — needs local FT-team 
 
 ## Facts worth knowing
 
-- Live site: https://prop-firm-newsletter.vercel.app. It does not deploy from GitHub; deploy with `cd site && vercel deploy --prod`.
+- Live site: https://prop-firm-newsletter.vercel.app. **Merging to `main` auto-deploys** (Vercel is linked to GitHub, root directory `site`). PR branches get preview deploys. Don't run `vercel deploy` from `site/`, because the root setting would make it look for `site/site`.
+- Owner flow: `/daily?preview=<PREVIEW_KEY>` → open the draft → enter `OWNER_KEY` → Publish / Approve Short.
 - DB: blackout-clock Supabase (`fqgryxjuecjgelcjdvmq`), schema `funded_tape`. Apply SQL from `~/@Pomo651/blackout-clock` with `supabase db query --linked -f <file>`.
-- Secrets (`BOT_TOKEN`, `PREVIEW_KEY`, service key) live in `site/.env.local` and Vercel. Never commit them.
+- Secrets (`BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`, service key) live in `site/.env.local` and Vercel. Never commit them.
 - Only pomo651 approves or publishes an edition. The newsletter is daily; the exact times are pomo651's call.

@@ -140,3 +140,16 @@ a { color: inherit; }
 .sources { font-size: 13px; color: var(--muted); margin: 0 0 12px; padding-left: 18px; word-break: break-all; }
 .disclaimer { color: var(--faint); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 16px; }
 .draft-banner { background: #fdf0d8; color: #8a5a00; border-radius: 10px; padding: 10px 14px; font-size: 14px; margin-bottom: 16px; }
+
+/* ---------- categories, video, owner ---------- */
+.cat { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; margin-right: 8px; background: #eeece6; color: var(--muted); }
+.cat-rule_change { background: var(--accent-soft); color: var(--accent); }
+.cat-allegation { background: #fbe4e1; color: #a1362b; }
+.video-link { font-weight: 600; }
+.owner { border: 1px dashed var(--accent); border-radius: 12px; padding: 14px 16px; margin: 16px 0; background: var(--surface); font-size: 14px; }
+.owner-head { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.owner input { font: inherit; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; width: 200px; max-width: 100%; }
+.owner-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.owner .btn { cursor: pointer; font: inherit; font-weight: 600; font-size: 13px; padding: 7px 14px; }
+.owner .btn:disabled { opacity: .5; cursor: default; }
+.owner-msg { margin-top: 10px; color: var(--muted); }
