@@ -9,24 +9,24 @@ Funded Tape is a daily newsletter for prop firm traders. Each issue is the thing
 
 ## Daily workflow
 
-The newsletter and the Short are daily. Each edition covers the 24 hours up to 5 AM ET. Full write-up: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md).
+The newsletter and the Short are daily. Each edition covers the 24 hours up to 6 AM ET. Full write-up: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md).
 
 ```mermaid
 flowchart TD
-  A[FT-sources and FT-community post items as new all day] --> B[Final sweep by 5 AM ET]
-  B --> C[FT-PM fact-checks and marks picks by 6 AM ET]
-  C --> D[FT-editor posts the edition as draft by 6:30 AM ET]
-  D --> E[pomo651 publishes around 7 AM ET / 6 AM Edmonton in winter]
-  E --> F[FT-video builds the daily Short, ready 7:15–8 AM ET]
+  A[FT-sources and FT-community post items as new all day] --> B[Final sweep by 6 AM ET]
+  B --> C[FT-PM fact-checks and marks picks by 6:45 AM ET]
+  C --> D[FT-editor posts the edition as draft by 7:15 AM ET]
+  D --> E[pomo651 publishes at 7:45 AM ET / 6:45 AM Edmonton in winter]
+  E --> F[FT-video builds the daily Short, ready 8:00–8:45 AM ET]
 ```
 
-1. All day, with a final sweep by **5 AM ET**: FT-sources and FT-community post every item as `new`.
-2. By **6 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 on a weekday, proposed). Picks show on the public home page immediately, so only mark one after the check.
-3. By **6:30 AM ET**: FT-editor posts the edition as status `draft`.
-4. Around **7 AM ET** (6 AM Edmonton in winter): pomo651 approves and publishes. Bots never publish.
-5. After that: FT-video builds the daily Short from the published edition. It is ready around **7:15–8 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
+1. All day, with a final sweep by **6 AM ET**: FT-sources and FT-community post every item as `new`.
+2. By **6:45 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 on a weekday, proposed). Picks show on the public home page immediately, so only mark one after the check.
+3. By **7:15 AM ET**: FT-editor posts the edition as status `draft`.
+4. At **7:45 AM ET** (6:45 AM Edmonton in winter): pomo651 approves and publishes. The approval window is about 6:15 to 6:45 AM Edmonton. Bots never publish.
+5. After that: FT-video builds the daily Short from the published edition. It is ready around **8:00–8:45 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
 
-pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). We'll iterate on it using open and click data, and an evening edition is the fallback option. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
+pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
 
 ## Bot team
 
@@ -45,7 +45,7 @@ The GitHub repo is the source of truth. Nothing sends or uploads until pomo651 a
 ## Layout
 
 - `plan/` — static CEO plan and team docs. Version 1 (Nov 1, 2026) is `plan/prop-firm-ceo-plan-v1.html`. Rebuild it with `python3 scripts/build_html.py`. Daily workflow: [`plan/WORKFLOW.md`](plan/WORKFLOW.md). Item format: [`plan/DATA_FORMAT.md`](plan/DATA_FORMAT.md). Roles and handoffs: [`plan/TEAM.md`](plan/TEAM.md).
-- `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent. FINAL drafts of weekly editions #1–#3 (never sent) are here too; see **Archive / newsletter files**.
+- `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent. FINAL drafts of weekly editions #1–#3 are here too (no confirmed send on record; see [`cutoffs.md`](cutoffs.md)); see **Archive / newsletter files**.
 - `research/` — background notes. `research/platform-pricing-2026-11-03.txt` is the platform check that chose Beehiiv's free plan.
 - `scripts/` — helpers. `scripts/build_html.py` generates the plan HTML. Edition and screenshot builders live here too.
 - `site/` — the Funded Tape website (Next.js on Vercel). See **Website** below.
@@ -86,7 +86,7 @@ The left sidebar has only these two pages for now.
 
 Synced from the team's local working copy on Nov 25, 2026. These files had not been committed after the initial repo layout.
 
-- `editions/` also holds the FINAL drafts of editions #1 (Nov 8), #2 (Nov 16), and #3 (Nov 22): markdown, HTML, Beehiiv-clean HTML, a desktop preview PNG, and notes to FT-PM (filenames still say KFC), plus the Nov 6–7 verify-for-kfc notes. **Editions #1–#3 were drafted for the old weekly cadence and were never sent.**
+- `editions/` also holds the FINAL drafts of editions #1 (Nov 8), #2 (Nov 16), and #3 (Nov 22): markdown, HTML, Beehiiv-clean HTML, a desktop preview PNG, and notes to FT-PM (filenames still say KFC), plus the Nov 6–7 verify-for-kfc notes. **Editions #1–#3 were drafted for the old weekly cadence. There is no confirmed send on record; see [`cutoffs.md`](cutoffs.md).**
 - `funded-tape-template.html` and `designs/` — the Design B email template and the A–D design explorations (HTML + desktop/mobile previews).
 - `video/` — Shorts pipeline code and small assets (`build.sh`, `render.py`, `make_audio.py`, template, cover, script, metadata). Large rendered MP4s are not stored in the repo.
 - `proposals/` and `reports/` — the video/newsletter content-strategy proposal and the Nov 25 status report.

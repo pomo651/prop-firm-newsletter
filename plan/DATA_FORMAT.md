@@ -37,7 +37,7 @@ These were agreed in Funded Tape HQ on Nov 25, 2026. They **need a migration fro
 
 | Field | Type / values | Purpose |
 |---|---|---|
-| `category` | one of `rule_change`, `launch`, `payout`, `pricing`, `promo`, `allegation` | How to sort the item. `allegation` is kept out of picks (noted only). |
+| `category` | one of `rule_change`, `launch`, `payout`, `pricing`, `promo`, `allegation` | How to sort the item. An `allegation` may be picked only when the firm has given a case-specific response or there is a documented policy; otherwise it is noted and not picked. Allegations are always labelled as allegations. |
 | `source_published_at` | ISO 8601 timestamptz | When the firm (or source) posted it, not when we collected it. |
 | `evidence` | one of `official`, `firm_x_post`, `community` | What kind of evidence backs the item. Prefer `official`. |
 | `evidence_url` | URL | Link to that evidence (often the firm's own page). |
@@ -45,7 +45,7 @@ These were agreed in Funded Tape HQ on Nov 25, 2026. They **need a migration fro
 
 ## Example `POST /api/bot/items` payload
 
-The first block is valid today. The second block is proposed and will be stored only after the migration and API update.
+The payload below is **example data**, not a confirmed fact. The first block is valid today. The second block is proposed and will be stored only after the migration and API update.
 
 ```json
 [

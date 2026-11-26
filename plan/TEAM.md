@@ -37,11 +37,11 @@ FT-community┘                                                      │
                                               (upload only after pomo651 approves)
 ```
 
-1. **FT-sources** and **FT-community** post every item they find to the site as status `new` (`POST /api/bot/items`) all day, with a final sweep by 5 AM ET. They also keep a copy in the repo when it is part of the written record.
+1. **FT-sources** and **FT-community** post every item they find to the site as status `new` (`POST /api/bot/items`) all day, with a final sweep by 6 AM ET. They also keep a copy in the repo when it is part of the written record.
 2. **FT-PM** fact-checks against the firm's own page and marks an item `picked` only after that check. Picks appear on the public home page immediately, so an unchecked pick must not be marked.
 3. **FT-editor** writes the edition (markdown plus the Beehiiv/HTML package as needed), commits it under `editions/`, and posts it to the site as status `draft` (`POST /api/bot/editions`). Bots never set an edition to `published`.
 4. **pomo651** reviews the draft, approves it, and publishes it. Until that happens, the edition stays a draft and is not public and not sent.
-5. **FT-video** builds the daily Short from the approved, published edition (ready around 7:15–8:00 AM ET once the edition is approved). Nothing is uploaded without pomo651's approval.
+5. **FT-video** builds the daily Short from the approved, published edition (ready around 8:00–8:45 AM ET once the edition is approved). Nothing is uploaded without pomo651's approval.
 6. **Drew** keeps the repo, infra, and docs in sync.
 
 The bot API details (endpoints, fields, statuses) are in [`site/BOT_API.md`](../site/BOT_API.md). Never commit tokens or keys.
@@ -57,9 +57,9 @@ These are the rules from the live site (PR #2):
 
 ## Daily schedule
 
-The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 5 AM ET.
+The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 6 AM ET.
 
-pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026, to be iterated later: final sweep by 5 AM ET, FT-PM's picks by 6, FT-editor's draft by 6:30, pomo651 publishes around 7 AM ET (6 AM Edmonton in winter), and the Short is ready around 7:15–8:00 AM ET after that approval. About 3 picks per weekday is also a proposal.
+pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, pomo651 publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks per weekday is also a proposal. The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
 
 Open questions for pomo651: whether to skip weekends, and whether a weekly Beehiiv recap continues alongside the daily edition.
 
