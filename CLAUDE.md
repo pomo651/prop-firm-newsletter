@@ -50,4 +50,5 @@ FT-grok marks each PR it opens with: **"Done by FT-grok — needs local FT-team 
 - Owner flow: `/daily?preview=<PREVIEW_KEY>` → open the draft → enter `OWNER_KEY` → Publish / Approve Short.
 - DB: blackout-clock Supabase (`fqgryxjuecjgelcjdvmq`), schema `funded_tape`. Apply SQL from `~/@Pomo651/blackout-clock` with `supabase db query --linked -f <file>`.
 - Secrets (`BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`, service key) live in `site/.env.local` and Vercel. Never commit them.
-- Only pomo651 approves or publishes an edition. The newsletter is daily; the exact times are pomo651's call.
+- Only pomo651 approves or publishes, but pomo651 **delegated the daily edition to our auto-review** (Nov 26, 2026). pg_cron job `funded-tape-auto-publish` (`45 11,12 * * *` UTC) calls `/api/jobs/auto-publish`, which acts only in the 7 AM New York hour. Result emails go to `NOTIFY_EMAIL` via Resend (send-only key borrowed from claude-wall; the onboarding sender can only deliver to legogao651@gmail.com). Run it by hand: `POST /api/jobs/auto-publish?force=1&date=YYYY-MM-DD` with `x-job-secret`. Shorts are NOT auto-approved.
+- The cron SQL in `supabase/migrations/*_auto_publish.sql` has a `<FT_JOB_SECRET>` placeholder. Substitute it when applying and never commit the value.

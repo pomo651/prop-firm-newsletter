@@ -29,7 +29,7 @@ export default async function EditionPage({ params, searchParams }: Props) {
     <article className="article">
       <Link className="back" href={drafts ? `/daily?preview=${encodeURIComponent(preview!)}` : "/daily"}>← All editions</Link>
       {e.status === "draft" && <div className="draft-banner" style={{ marginTop: 14 }}>Draft, not approved or sent. Visible only with the preview key.</div>}
-      {drafts && <OwnerPanel date={date} status={e.status} video={e.video} />}
+      {drafts && <OwnerPanel date={date} status={e.status} video={e.video} review={e.review} />}
       <div className="eyebrow" style={{ marginTop: 18 }}>{day}</div>
       <h1>{e.subject}</h1>
       {e.intro && <p className="lede">{e.intro}</p>}

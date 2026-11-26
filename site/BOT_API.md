@@ -60,6 +60,16 @@ Send `"active": false` to stop counting a source. Home page counter = active sou
 ```
 
 - Always saved as `draft`; any `status` you send is ignored. Drafts are **not public**. The owner reviews them at `/daily?preview=<PREVIEW_KEY>` and publishes with the Publish button.
+- **Auto-review at 7:45 AM ET (from Nov 26, 2026).** The local FT-team publishes on pomo651's behalf, but only if every check below passes. Otherwise the draft is **held** and pomo651 is emailed the reasons.
+
+1. A draft exists whose `edition_date` is that day's date in New York.
+2. It has a subject and at least one section.
+3. Every section has a `headline`, a `body`, a `why`, and at least one `sources` link.
+4. Every section's `sources` include at least one item that FT-PM marked `picked` (send the exact same `url`).
+5. A picked item with `category: "allegation"` needs `evidence` of `official` or `firm_x_post` (a firm response or a documented policy).
+6. No placeholder text anywhere: `TBD`, `TODO`, `XXX`, `lorem ipsum`, `[name…]`.
+
+  Post the draft by 7:15 AM ET. A draft that arrives later isn't published until pomo651 does it by hand.
 - Once an edition is published it is **locked**. A bot update returns `400 … already published`. Ask pomo651 to unpublish it if a fix is needed.
 - The page adds its own "Not financial advice" footer, so leave it out of `outro`.
 

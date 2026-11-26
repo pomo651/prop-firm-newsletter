@@ -54,6 +54,7 @@ export type Edition = {
   status: "draft" | "published";
   published_at: string | null;
   video: Video | null;
+  review?: { result: "published" | "held" | "skipped"; reasons: string[]; ran_at: string } | null;
 };
 
 export type OwnerAction = "publish" | "unpublish" | "approve_video" | "unapprove_video" | "mark_uploaded";

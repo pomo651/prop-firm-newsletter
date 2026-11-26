@@ -16,14 +16,14 @@ flowchart TD
   A[FT-sources and FT-community post items as new all day] --> B[Final sweep by 6 AM ET]
   B --> C[FT-PM fact-checks and marks picks by 6:45 AM ET]
   C --> D[FT-editor posts the edition as draft by 7:15 AM ET]
-  D --> E[pomo651 publishes at 7:45 AM ET / 6:45 AM Edmonton in winter]
+  D --> E[Auto-review at 7:45 AM ET publishes it, or holds it for pomo651]
   E --> F[FT-video builds the daily Short, ready 8:00–8:45 AM ET]
 ```
 
 1. All day, with a final sweep by **6 AM ET**: FT-sources and FT-community post every item as `new`.
 2. By **6:45 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 on a weekday, proposed). Picks show on the public home page immediately, so only mark one after the check.
 3. By **7:15 AM ET**: FT-editor posts the edition as status `draft`.
-4. At **7:45 AM ET** (6:45 AM Edmonton in winter): pomo651 approves and publishes. The approval window is about 6:15 to 6:45 AM Edmonton. Bots never publish.
+4. At **7:45 AM ET** (6:45 AM Edmonton in winter): the local FT-team's **auto-review** publishes the draft on pomo651's behalf if it passes every check (list in `site/BOT_API.md`). Otherwise it holds the draft and emails pomo651. Bots never publish.
 5. After that: FT-video builds the daily Short from the published edition. It is ready around **8:00–8:45 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
 
 pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
@@ -40,7 +40,7 @@ Roles, handoffs, and site rules are in [`plan/TEAM.md`](plan/TEAM.md). In short:
 - **Drew** owns the repo, infra, and docs.
 - **pomo651** owns website development and is the only one who publishes or uploads.
 
-The GitHub repo is the source of truth. Nothing sends or uploads until pomo651 approves it.
+The GitHub repo is the source of truth. Nothing sends or uploads until it is approved: by pomo651, or for the daily edition by the auto-review pomo651 delegated to the local FT-team.
 
 ## Pull requests: FT-grok and the local FT-team
 
@@ -87,11 +87,13 @@ The left sidebar has only these two pages for now.
 
 **Seeded data.** 71 sources from the plan's source map, plus the 13 source links and 5 picks from the demo edition. The demo edition itself (dated 2026-11-01) is stored as a **draft**, because it was never approved.
 
-**Env vars** (Vercel production + preview, and `site/.env.local` locally; names in `site/.env.example`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`.
+**Env vars** (Vercel production + preview, and `site/.env.local` locally; names in `site/.env.example`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOT_TOKEN`, `PREVIEW_KEY`, `OWNER_KEY`, `FT_JOB_SECRET`, `RESEND_API_KEY`, `NOTIFY_EMAIL`.
 
 **Run locally:** `cd site && npm install && npm run dev`. **Deploy:** merging to `main` deploys to production automatically. Vercel's root directory is `site`; every PR gets a preview deploy.
 
-**Publishing (owner only, added Nov 26, 2026).** pomo651 opens `/daily?preview=<PREVIEW_KEY>`, opens the draft, enters the owner key, and clicks **Publish edition**. **Approve Short for upload** works the same way. Bots can't publish, can't change a published edition, and can't change an approved Short.
+**Auto-review + publish (from Nov 26, 2026, delegated by pomo651).** A pg_cron job calls `/api/jobs/auto-publish` daily at 7:45 AM ET (DST-safe). It runs `ft_review_edition`, publishes if every check passes, otherwise holds the draft, and emails pomo651 either way. Each run is logged in `funded_tape.publish_log` and shown on the draft page. The checks are listed in `site/BOT_API.md`.
+
+**Publishing by hand (owner only).** pomo651 opens `/daily?preview=<PREVIEW_KEY>`, opens the draft, enters the owner key, and clicks **Publish edition**. **Approve Short for upload** works the same way. Bots can't publish, can't change a published edition, and can't change an approved Short.
 
 **New data fields (Nov 26, 2026).** Items accept `category`, `source_published_at`, `evidence`, `evidence_url` and `notes`. Shorts are posted with `POST /api/bot/videos`. Details: `site/BOT_API.md` and `plan/DATA_FORMAT.md`. On the home page, picks now show their category tag.
 
