@@ -57,7 +57,7 @@ Two teams work in this repo: **FT-grok** (the Grok bots above) and the **local F
 - `editions/` — newsletter issues. `editions/2026-10-26_11-01-demo.txt` is a practice draft that was never sent. FINAL drafts of weekly editions #1–#3 are here too (no confirmed send on record; see [`cutoffs.md`](cutoffs.md)); see **Archive / newsletter files**.
 - `research/` — background notes. `research/platform-pricing-2026-11-03.txt` is the platform check that chose Beehiiv's free plan.
 - `scripts/` — helpers. `scripts/build_html.py` generates the plan HTML. Edition and screenshot builders live here too.
-- `site/` — the Funded Tape website (Next.js on Vercel). See **Website** below.
+- `site/` — the Funded Tape website (Next.js on Vercel). See **Website** and **Admin** below.
 - `supabase/migrations/` — database schema for the website.
 - `designs/`, `video/`, `proposals/`, `reports/` — template explorations, the Shorts pipeline, strategy proposals, and status reports. See **Archive / newsletter files**.
 - `funded-tape-template.html`, `cutoffs.md`, `send-schedule.md` — the Design B email template and the old weekly window/send schedule.
@@ -73,7 +73,25 @@ Live: **https://prop-firm-newsletter.vercel.app** (Vercel project `prop-firm-new
 | `/` Home | How Funded Tape works: a live animation (many sources → a few picks → the newsletter), live counters (sources, items, picks, editions) and the latest picks. It refreshes every 30 seconds. |
 | `/daily` Daily newsletter | Published editions, newest first. One page per edition at `/daily/YYYY-MM-DD`. |
 
-The left sidebar has only these two pages for now.
+The left sidebar has only these two pages for now. The admin (below) is separate and not linked from the public site.
+
+## Admin (added Nov 26, 2026)
+
+**https://prop-firm-newsletter.vercel.app/admin** is for pomo651 and the local FT-team. Sign in with the `PREVIEW_KEY` (the same key that opens drafts). The admin only reads. Publishing and approving Shorts still happen on the draft page with the `OWNER_KEY`, as before.
+
+| Page | What to watch |
+|---|---|
+| **Today** | Today's pipeline against the timetable (sweep 6:00, picks 6:45, draft 7:15, auto-review 7:45, Short 8:00–8:45 ET, with Edmonton times), each step Done / Not due / Late / Missing. KPIs: items in 24h, picks vs ~3, published in the last 14 days, active and silent sources. "Needs you" (held drafts, Shorts to approve, risky picks), a 14-day edition strip, picks by category and evidence, items by collector, and the audience metrics not connected yet (Beehiiv, YouTube, page views). |
+| **Items & picks** | Every item, grouped by day, filtered by status. A red edge marks a pick with no category, no evidence link, or an allegation without official evidence. |
+| **Editions & Shorts** | Every edition with its status, latest auto-review result and Short status, plus the auto-review log. Buttons open the owner view. |
+| **Sources** | The master list by kind, with item counts. A source with no items for 14 days is marked silent. |
+| **Workflows** | The whole operating manual on one page: daily run, morning checklist, who owns what, pick and editorial rules, the 6 auto-review checks, what to do when something breaks, PR rules, and how data changes. Keep it in step with `plan/WORKFLOW.md` and `plan/TEAM.md`. |
+
+**Theme.** The admin uses the FDE "bustem" theme, the same look as the VHealth and Kids Map admins. Rules, files, status colours and how to add a page: [`site/app/admin/THEME.md`](site/app/admin/THEME.md).
+
+**Database.** The admin reads one new function, `public.ft_admin_snapshot` (migration `supabase/migrations/20261127000000_funded_tape_admin.sql`). It only reads and is granted to `service_role` only. **Until it is applied, the admin runs in partial mode**: Today and Editions work from the existing functions, but the item list and source list are missing. Apply it from `~/@Pomo651/blackout-clock` with `supabase db query --linked -f <file>`.
+
+**Code.** Public pages moved into the route group `site/app/(site)/` (URLs unchanged). Admin pages are in `site/app/admin/`, data and time helpers in `site/lib/admin.ts`, sign-in at `site/app/api/admin/login` (httpOnly cookie, 30 days).
 
 **How bots feed it.** The site reads from a database. Bots write to it through `POST /api/bot/sources`, `/api/bot/items` and `/api/bot/editions` with a bearer token. Full guide: [`site/BOT_API.md`](site/BOT_API.md).
 
