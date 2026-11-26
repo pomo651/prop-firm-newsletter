@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { rpc } from "@/lib/db";
-import { getMonitor, type MonStep } from "@/lib/monitor";
+import { getBots, getMonitor, type MonStep } from "@/lib/monitor";
 
 export const dynamic = "force-dynamic";
 
@@ -39,9 +39,9 @@ export async function POST(req: Request) {
   const check = forced ?? (t.hour === 7 && t.minute >= 15 && t.minute < 35 ? "early" : t.hour === 8 && t.minute >= 50 ? "full" : null);
   if (check !== "early" && check !== "full") return NextResponse.json({ ok: true, idle: `not a checkpoint (${t.hour}:${t.minute} ET)` });
 
-  let today;
+  let today, bots;
   try {
-    today = (await getMonitor(1)).days[0];
+    [today, bots] = await Promise.all([getMonitor(1).then((m) => m.days[0]), getBots()]);
   } catch (e) {
     // the DB itself is unreachable: that's the most important alert of all
     const sent = await email("RED: monitor can't read the database", `The ${check} check couldn't read Supabase:\n${(e as Error).message}\n\nThe 7:45 publish will fail too until this is fixed.\n${SITE}/admin/monitor`);
@@ -51,7 +51,15 @@ export async function POST(req: Request) {
 
   const watch = (s: MonStep) =>
     (check === "full" || EARLY.includes(s.key)) && (s.state === "fail" || (check === "full" && (s.state === "needs" || s.state === "late")));
-  const problems = today.steps.filter(watch);
+  // each bot on its own: one silent bot is red even while the combined step stays green
+  const botSteps: MonStep[] = bots.map((b) => ({
+    key: `bot:${b.bot}`, title: `${b.bot} silent`, who: b.bot, due: b.due, state: b.state, detail: `${b.job}: ${b.today}`,
+  }));
+  const BOT_EARLY = ["bot:FT-sources", "bot:FT-community", "bot:FT-PM", "bot:FT-editor"];
+  const problems = [
+    ...today.steps.filter(watch),
+    ...botSteps.filter((s) => s.state === "fail" && (check === "full" || BOT_EARLY.includes(s.key))),
+  ];
   if (problems.length === 0) return NextResponse.json({ ok: true, check, date: today.date, state: today.state, alerts: 0 });
 
   // only what hasn't been emailed before
@@ -61,7 +69,7 @@ export async function POST(req: Request) {
   if (fresh.length === 0) return NextResponse.json({ ok: true, check, date: today.date, alerts: 0, note: "already emailed" });
 
   const red = fresh.some((f) => f.state === "fail");
-  const byKey = Object.fromEntries(today.steps.map((s) => [s.key, s]));
+  const byKey = Object.fromEntries([...today.steps, ...botSteps].map((s) => [s.key, s]));
   const lines = fresh.map((f) => {
     const s = byKey[f.step];
     const tag = f.state === "fail" ? "RED" : f.state === "needs" ? "NEEDS YOU" : "LATE";

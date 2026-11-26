@@ -1,5 +1,5 @@
-import { isAdmin, fmtDay, fmtWhen } from "@/lib/admin";
-import { getMonitor, type MonDay, type MonState } from "@/lib/monitor";
+import { isAdmin, ago, fmtDay, fmtWhen } from "@/lib/admin";
+import { getBots, getMonitor, type MonDay, type MonState } from "@/lib/monitor";
 import { Head, Pill } from "@/components/admin/ui";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ const STEP_LABEL: Record<string, string> = { late: "Late", needs: "Needs you" };
 
 export default async function Monitor() {
   if (!(await isAdmin())) return null;
-  const m = await getMonitor(14);
+  const [m, bots] = await Promise.all([getMonitor(14), getBots()]);
   const today = m.days[0];
   const live = m.days.filter((d) => d.state !== "off");
   const green = live.filter((d) => d.state === "ok").length;
@@ -52,6 +52,27 @@ export default async function Monitor() {
                   <td className="r bz-num">{s.due}</td>
                   <td><Pill v={s.state === "off" ? "off" : CLS[s.state]} label={STEP_LABEL[s.state] ?? (s.state === "off" ? "Off" : undefined)} /></td>
                   <td className="bz-small">{s.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="bz-card flush" id="bots">
+        <div className="bz-bar"><b>Grok bots</b><span className="bz-sp" /><span className="bz-small">What each bot sent us today. We can&apos;t see inside their machine.</span></div>
+        <div className="bz-table">
+          <table className="bz-t">
+            <thead><tr><th>Bot</th><th>Job</th><th className="r">Due (ET)</th><th>Status</th><th>Today</th><th>Last sent anything</th></tr></thead>
+            <tbody>
+              {bots.map((b) => (
+                <tr key={b.bot} className={b.state === "fail" ? "bad" : b.state === "late" ? "warn" : ""}>
+                  <td><div className="ft-step"><i className={CLS[b.state]}>{ICON[b.state]}</i><b>{b.bot}</b></div></td>
+                  <td className="bz-small">{b.job}</td>
+                  <td className="r bz-num">{b.due}</td>
+                  <td><Pill v={b.state === "off" ? "off" : CLS[b.state]} label={b.state === "fail" ? "Silent" : b.state === "off" ? "Off" : STEP_LABEL[b.state]} /></td>
+                  <td className="bz-small">{b.today}</td>
+                  <td className="nw bz-small">{b.last ? `${ago(b.last)} · ${fmtWhen(b.last)} ET` : "never"}</td>
                 </tr>
               ))}
             </tbody>
@@ -113,6 +134,7 @@ export default async function Monitor() {
           <li><b>Draft</b>: green if first posted by 7:15; amber if later; red if missing.</li>
           <li><b>Auto-review + publish</b>: green when published; red when held or not run by 7:55.</li>
           <li><b>Build Short / Approve Short</b>: off until FT-video posts its first Short. Then red if missing by 8:45, amber &ldquo;Needs you&rdquo; until you approve.</li>
+          <li><b>Grok bots</b>: each bot on its own. One silent bot turns red (and is emailed) even if the other keeps the combined step green.</li>
           <li>Alerts: 7:20 AM ET (collect, picks, draft: red only) and 8:55 AM ET (everything, incl. amber). The 7:45 publish also emails its own result.</li>
         </ol>
       </details>
