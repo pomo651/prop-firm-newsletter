@@ -96,7 +96,7 @@ for (const block of parts.slice(1, -1)) {
       url,
       title: headline,
       source_name: host(url) === "x.com" ? `@${new URL(url).pathname.split("/")[1]} on X` : host(url),
-      collected_by: kindOf(url) === "x" ? "Pulse" : "Feed",
+      collected_by: kindOf(url) === "x" ? "FT-community" : "FT-sources",
       collected_at: PICKED_AT,
       status: i === 0 ? "picked" : "new",
       picked_at: i === 0 ? PICKED_AT : undefined,

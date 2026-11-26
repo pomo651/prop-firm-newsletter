@@ -7,7 +7,7 @@ Every write goes through three endpoints. All are `POST`, take JSON, and need th
 Authorization: Bearer <BOT_TOKEN>
 ```
 
-The owner (Jason) holds `BOT_TOKEN` and hands it to KFC. Never commit it.
+The owner (pomo651) holds `BOT_TOKEN` and hands it to FT-PM. Never commit it.
 Re-sending the same `url` / `edition_date` updates the row, so every call is safe to retry.
 
 ## 1. Sources: what the watchers look at
@@ -32,13 +32,13 @@ Send `"active": false` to stop counting a source. Home page counter = active sou
   "source_name": "help.fundednext.com",
   "source_url": "https://help.fundednext.com/",
   "firm": "FundedNext",
-  "collected_by": "Feed",
+  "collected_by": "FT-sources",
   "status": "new"
 }]
 ```
 
-- Required: `url`, `title`, `source_name`. Optional: `summary`, `source_url` (must match a source already sent), `firm`, `collected_by` (Feed / Pulse / KFC), `collected_at` (ISO time, default now).
-- `status`: `new` when collected, `picked` when KFC picks it, `rejected` when dropped.
+- Required: `url`, `title`, `source_name`. Optional: `summary`, `source_url` (must match a source already sent), `firm`, `collected_by` (FT-sources / FT-community / FT-PM), `collected_at` (ISO time, default now).
+- `status`: `new` when collected, `picked` when FT-PM picks it (after fact-checking), `rejected` when dropped.
 - **Picks show on the public home page right away** (Latest picks + the live animation). Only mark `picked` once the item is fact-checked.
 
 ## 3. Editions: the daily newsletter
