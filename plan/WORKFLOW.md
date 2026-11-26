@@ -60,7 +60,7 @@ The old weekly rhythm (collect Mon–Thu, draft Fri, approve Sat, send Sun) is r
 ## Approval steps
 
 1. **FT-editor** writes the edition (`editions/YYYY-MM-DD.md`, plus the Beehiiv/HTML package as needed) and posts it to the site as status `draft` (`POST /api/bot/editions`). Drafts are not public.
-2. **pomo651** reviews the draft, approves it, and publishes it on the site (and sends on Beehiiv, if that day's send is in use). Until then, the edition stays a draft and is not public and not sent.
+2. At 7:45 AM ET the **auto-review** (local FT-team, on pomo651's behalf) publishes the draft on the site if it passes every check in `site/BOT_API.md`; otherwise it holds the draft and emails pomo651. Sending on Beehiiv (if that day's send is in use) is still done by hand. Until then, the edition stays a draft and is not public and not sent.
 3. **Bots never set an edition to `published`.**
 4. After the edition is published, **FT-video** builds the daily Short from that approved, published edition. The Short is ready around 8:00–8:45 AM ET, once pomo651 has approved the edition.
 5. **Nothing is uploaded** (YouTube or elsewhere) without pomo651's approval.
