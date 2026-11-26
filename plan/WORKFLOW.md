@@ -1,6 +1,6 @@
 # Daily workflow
 
-Agreed on Nov 25, 2026 in Funded Tape HQ (pomo651, FT-PM, Drew). The newsletter and the Short are now daily. The timetable below is **proposed** until pomo651 confirms it.
+Agreed on Nov 25, 2026 in Funded Tape HQ (pomo651, FT-PM, Drew). The newsletter and the Short are now daily. pomo651 confirmed the early-morning timetable below as the first test (Nov 25, 2026); we will iterate on it using open and click data.
 
 Item format and how bots write to the database: [`DATA_FORMAT.md`](DATA_FORMAT.md). Roles at a glance: [`TEAM.md`](TEAM.md). Bot API: [`site/BOT_API.md`](../site/BOT_API.md).
 
@@ -16,7 +16,7 @@ Item format and how bots write to the database: [`DATA_FORMAT.md`](DATA_FORMAT.m
 | **Drew** | The repo, infra, and docs. |
 | **pomo651** | Website development, and the only person who publishes or uploads. |
 
-## Daily schedule (proposed)
+## Daily schedule (morning test, confirmed Nov 25)
 
 Each edition covers the **24 hours up to 5 AM ET**. Times below are Eastern. In winter, 7 AM ET is 6 AM Edmonton (America/Edmonton, MST / UTC-6).
 

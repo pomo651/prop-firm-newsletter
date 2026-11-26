@@ -26,7 +26,7 @@ flowchart TD
 4. Around **7 AM ET** (6 AM Edmonton in winter): pomo651 approves and publishes. Bots never publish.
 5. After that: FT-video builds the daily Short from the published edition. It is ready around **7:15–8 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
 
-This timetable is **proposed** until pomo651 confirms it. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
+pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). We'll iterate on it using open and click data, and an evening edition is the fallback option. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
 
 ## Bot team
 

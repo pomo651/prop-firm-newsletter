@@ -59,7 +59,7 @@ These are the rules from the live site (PR #2):
 
 The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 5 AM ET.
 
-The timetable is **proposed** until pomo651 confirms it: final sweep by 5 AM ET, FT-PM's picks by 6, FT-editor's draft by 6:30, pomo651 publishes around 7 AM ET (6 AM Edmonton in winter), and the Short is ready around 7:15–8:00 AM ET after that approval. About 3 picks per weekday is also a proposal.
+pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026, to be iterated later: final sweep by 5 AM ET, FT-PM's picks by 6, FT-editor's draft by 6:30, pomo651 publishes around 7 AM ET (6 AM Edmonton in winter), and the Short is ready around 7:15–8:00 AM ET after that approval. About 3 picks per weekday is also a proposal.
 
 Open questions for pomo651: whether to skip weekends, and whether a weekly Beehiiv recap continues alongside the daily edition.
 
