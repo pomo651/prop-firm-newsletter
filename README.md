@@ -21,12 +21,12 @@ flowchart TD
 ```
 
 1. All day, with a final sweep by **6 AM ET**: FT-sources and FT-community post every item as `new`.
-2. By **6:45 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 on a weekday, proposed). Picks show on the public home page immediately, so only mark one after the check.
+2. By **6:45 AM ET**: FT-PM fact-checks against the firm's own page and marks picks (about 3 a day, fewer on thin days, proposed). Picks show on the public home page immediately, so only mark one after the check.
 3. By **7:15 AM ET**: FT-editor posts the edition as status `draft`.
 4. At **7:45 AM ET** (6:45 AM Edmonton in winter): the local FT-team's **auto-review** publishes the draft on pomo651's behalf if it passes every check (list in `site/BOT_API.md`). Otherwise it holds the draft and emails pomo651. Bots never publish.
 5. After that: FT-video builds the daily Short from the published edition. It is ready around **8:00–8:45 AM ET**, once pomo651 has approved the edition. Nothing is uploaded without that approval.
 
-pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Still open: whether to skip weekends, and whether a weekly Beehiiv recap continues.
+pomo651 confirmed this early-morning timetable as the first test (Nov 25, 2026). The edition runs 7 days a week, weekends and holidays included (pomo651, Nov 25, 2026). The first live edition is Thursday Nov 26, 2026, with no dry run. An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data. Weekends and holidays are not skipped. Still open: whether a weekly Beehiiv recap continues. How the FT-grok side runs by itself: [plan/FT-GROK-AUTOPILOT.md](plan/FT-GROK-AUTOPILOT.md).
 
 ## Bot team
 

@@ -59,9 +59,9 @@ These are the rules from the live site (PR #2):
 
 The newsletter and the Short are daily (owner decision, Nov 25, 2026). Each edition covers the 24 hours up to 6 AM ET.
 
-pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, the auto-review publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks per weekday is also a proposal. The first live edition is targeted for Friday Nov 27, 2026 (Thursday Nov 26 is US Thanksgiving). An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
+pomo651 confirmed this early-morning timetable as the first test on Nov 25, 2026: final sweep by 6 AM ET, FT-PM's picks by 6:45, FT-editor's draft by 7:15, the auto-review publishes at 7:45 AM ET (6:45 AM Edmonton in winter; approval window about 6:15 to 6:45 AM Edmonton), and the Short is ready around 8:00–8:45 AM ET after that approval. About 3 picks a day is also a proposal. The edition runs 7 days a week, weekends and holidays included (pomo651, Nov 25, 2026). The first live edition is Thursday Nov 26, 2026, with no dry run. An evening edition (cutoff around 5 PM ET) remains an option to test later, using open and click data.
 
-Open questions for pomo651: whether to skip weekends, and whether a weekly Beehiiv recap continues alongside the daily edition.
+Weekends and holidays are not skipped (pomo651, Nov 25, 2026). Open question for pomo651: whether a weekly Beehiiv recap continues alongside the daily edition.
 
 The old weekly rhythm (collect Mon–Thu, draft Fri, approve Sat, send Sun) is retired. Historical windows are in `cutoffs.md` and `send-schedule.md`.
 
