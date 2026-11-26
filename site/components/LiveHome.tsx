@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Stats } from "@/lib/db";
+import { CATEGORY_LABEL, type Stats } from "@/lib/types";
 import { FlowField } from "./FlowField";
 
 const POLL_MS = 30_000;
@@ -117,7 +117,10 @@ export function LiveHome({ initial }: { initial: Stats }) {
             <time dateTime={p.picked_at}>{ago(p.picked_at)}</time>
             <div>
               <a href={p.url} target="_blank" rel="noreferrer">{p.title}</a>
-              <div className="src">{p.source}{p.firm ? ` · ${p.firm}` : ""}</div>
+              <div className="src">
+                {p.category && <span className={`cat cat-${p.category}`}>{CATEGORY_LABEL[p.category]}</span>}
+                {p.source}{p.firm ? ` · ${p.firm}` : ""}
+              </div>
             </div>
           </div>
         ))}

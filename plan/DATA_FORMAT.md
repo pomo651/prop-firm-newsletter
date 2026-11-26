@@ -31,9 +31,9 @@ These columns are in the database and accepted by `POST /api/bot/items` now.
 
 Watchers always post items as `status: "new"`. Only FT-PM marks `picked`, and only after a fact-check against the firm's own page. Picks show on the public home page immediately.
 
-## `items` — proposed columns (not in the database yet)
+## `items` — added columns (live since Nov 26, 2026)
 
-These were agreed in Funded Tape HQ on Nov 25, 2026. They **need a migration from pomo651**, and the bot API must be updated before bots can store them. Until then, treat them as a proposal: do not assume a POST will persist them.
+Agreed in Funded Tape HQ on Nov 25, 2026. The local FT-team added them on Nov 26, 2026 (migration `supabase/migrations/20261126000000_funded_tape_fields_videos_publish.sql`). `POST /api/bot/items` stores them now. Values outside the listed options are rejected.
 
 | Field | Type / values | Purpose |
 |---|---|---|
@@ -45,7 +45,7 @@ These were agreed in Funded Tape HQ on Nov 25, 2026. They **need a migration fro
 
 ## Example `POST /api/bot/items` payload
 
-The payload below is **example data**, not a confirmed fact. The first block is valid today. The second block is proposed and will be stored only after the migration and API update.
+The payload below is **example data**, not a confirmed fact. Both blocks are stored today.
 
 ```json
 [
@@ -75,9 +75,9 @@ The payload below is **example data**, not a confirmed fact. The first block is 
 
 **`editions`**: `edition_date` (unique), `subject`, `preview`, `intro`, `outro`, `sections` (JSON array of `{headline, body, why, sources}`), `status` (`draft` or `published`), `published_at`. Posted with `POST /api/bot/editions`. Bots always send `status: "draft"`. Only pomo651 publishes.
 
-## Proposed `videos` table (not in the database yet)
+## `videos` table (live since Nov 26, 2026)
 
-A small table linking each daily Short to its edition. Needs a migration from pomo651. No bot endpoint exists yet.
+Links each daily Short to its edition. FT-video posts it with `POST /api/bot/videos` (see `site/BOT_API.md`). Status values: `draft` (posted by the bot) → `approved` (pomo651 OK'd the upload) → `uploaded`.
 
 | Field | Purpose |
 |---|---|
